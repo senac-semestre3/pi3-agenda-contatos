@@ -17,7 +17,10 @@ public class Contato {
     private Date dataNascimento;
     private String telefone;
     private String email;
+    private char sexo;
 
+    
+    // geters e seters
     public String getNome() {
         return nome;
     }
@@ -48,6 +51,14 @@ public class Contato {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public char getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(char sexo) {
+        this.sexo = sexo;
     }
     
     

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.senac.pi3.ui.form;
+package br.senac.pi3a.ui.form;
 
 /**
  *
