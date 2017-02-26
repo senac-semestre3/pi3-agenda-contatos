@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.senac.pi3.ui.form;
+package br.senac.pi3a.model;
+
+import java.util.Date;
 
 /**
  *
  * @author everton
  */
-public class teste {
-    
+public class DataEHora {
+    private Date dataAtual;
 }
