@@ -1,0 +1,30 @@
+######### CORES ################
+Cores em RGB
+#Header: 						[201,223,255]
+#imagens:						[55,64,77]
+#imagens Ativa:					[255,187,0]
+#Texto:							[55,64,77]
+#Background Texto Selecionado:	[255,187,0]
+#Texto Selecionado:				[255,255,255]
+#Texto Destaque:				[255,187,0]
+#Tabela Fundo: 					[255,255,255]
+#Tabela Linha Selecionado:		[201,223,255]
+#Tabela texto:					[55,64,77]
+#Tabela texto Selecionado:		[55,64,77]
+
+
+######## TEXTO  ##########
+
+#button:					Dialog 13 Negrito
+#table:						Dialog 15 Negrito
+#label:						Dialog 15 Negrito
+#Opção de Sexo e lista:		Dialog 15 Simples
+#Favorito:					Dialog 16 Negrito
+#Caixa de texto:			Dialog 16 Simples
+#Titulo do Panel:			Dialog 15 Negrito
+
+
+######## TAMANHO BUTTON  ##########
+
+#grande:	[58, 69]
+#pequeno:	[52, 52]
