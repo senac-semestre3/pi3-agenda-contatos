@@ -25,11 +25,12 @@ public class TesteConexao {
         c.setDataNascimento(Date.valueOf("2017-01-01")); // insere data teste
         c.setFavorito(true); 
         c.setTipoTelefone(2);
+        c.setTelefone("11955586");
         DaoContato daoc = new DaoContato();
 
         daoc.insereContato(c);
 
-        List<Contato> contatos = DaoContato.listarTodos("selec * from contato");
+        List<Contato> contatos = DaoContato.listarTodos("select * from contato");
 
         
 

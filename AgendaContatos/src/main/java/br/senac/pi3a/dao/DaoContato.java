@@ -5,10 +5,12 @@
  */
 package br.senac.pi3a.dao;
 
+import static br.senac.pi3a.dao.DBConnector.FecharConexao;
 import static br.senac.pi3a.dao.DBConnector.getConexaoDB;
 import br.senac.pi3a.model.Contato;
 import java.sql.Connection;
 import br.senac.pi3a.utils.ConnectionUtils;
+import java.net.ConnectException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -80,37 +82,138 @@ public class DaoContato {
 
     }
 
+    //retorna uma lista de contatos
     public static List<Contato> listarTodos(String sql) throws
-                     SQLException, Exception {
-      List<Contato> contatos = new ArrayList<Contato>();
+            SQLException, Exception {
+        //Cria lista de contatos
+        List<Contato> contatos = new ArrayList<Contato>();
+        //Abre conexão
+        Connection con = getConexaoDB();
+        
+        try {
+            //Cria um statement para executar as instruções SQL
+            PreparedStatement stmt = con.prepareStatement(sql);
+            //Cria o objeto que recebe o resultado da  query executada
+            ResultSet result = stmt.executeQuery();
+            
+            //Percorre o resultado da query criando e adicionando os contatos encotrados na lista de contatos inicialmente declarada.
+            while (result.next()) {
+                Contato contato = new Contato();
+                contato.setIdContato(result.getInt("id_contato"));
+                contato.setNome(result.getString("nome"));
+                contato.setDataNascimento(result.getDate("data_nasc"));
+                contato.setEmail(result.getString("email"));
+                contato.setSexo(result.getString("sexo").charAt(0));
+                contato.setFavorito(result.getBoolean("favorito"));
+                contato.setTipoTelefone(result.getInt("tipo_telefone"));
+
+                contatos.add(contato);
+
+            }
+            
+            result.close();
+            stmt.close();
+            FecharConexao();
+
+        } catch (Exception e) {
+
+        }
+        //Retorna a lista de clientes do banco de dados
+        return contatos;
+    }
+
+    public static List<Contato> listaPorId(int id_contato) {
+        List<Contato> contatos = new ArrayList<Contato>();
+        Connection con = getConexaoDB();
+
+        try {
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM contato WHERE id_contato = " + id_contato + ";");
+
+            ResultSet result = stmt.executeQuery();
+
+            while (result.next()) {
+                Contato contato = new Contato();
+                contato.setIdContato(result.getInt("id_contato"));
+                contato.setNome(result.getString("nome"));
+                contato.setDataNascimento(result.getDate("data_nasc"));
+                contato.setEmail(result.getString("email"));
+                contato.setSexo(result.getString("sexo").charAt(0));
+                contato.setFavorito(result.getBoolean("favorito"));
+                contato.setTipoTelefone(result.getInt("tipo_telefone"));
+
+                contatos.add(contato);
+
+            }
+            result.close();
+            stmt.close();
+            FecharConexao();
+        } catch (Exception e) {
+
+        }
+        return contatos;
+    }
+
+    public static List<Contato> listaPorNome(String nome) {
+        List<Contato> contatos = new ArrayList<Contato>();
 
         Connection con = getConexaoDB();
 
         try {
-            PreparedStatement stmt = con.prepareStatement(sql);
-            
-            ResultSet result =  stmt.executeQuery();
-            
-            while(result.next()){
-                    Contato contato = new Contato();
-                    contato.setIdContato(result.getInt("id_contato"));
-                    contato.setNome(result.getString("nome"));
-                    contato.setDataNascimento(result.getDate("data_nasc"));
-                    contato.setEmail(result.getString("email"));
-                    contato.setSexo(result.getString("sexo").charAt(0));
-                    contato.setFavorito(result.getBoolean("favorito"));
-                    contato.setTipoTelefone(result.getInt("tipo_telefone"));
-                    
-                    contatos.add(contato);
-                    
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM `contato` WHERE nome LIKE %" + nome + "%");
+            ResultSet result = stmt.executeQuery();
+
+            while (result.next()) {
+                Contato contato = new Contato();
+                contato.setIdContato(result.getInt("id_contato"));
+                contato.setNome(result.getString("nome"));
+                contato.setDataNascimento(result.getDate("data_nasc"));
+                contato.setEmail(result.getString("email"));
+                contato.setSexo(result.getString("sexo").charAt(0));
+                contato.setFavorito(result.getBoolean("favorito"));
+                contato.setTipoTelefone(result.getInt("tipo_telefone"));
+
+                contatos.add(contato);
+
             }
+
             result.close();
             stmt.close();
-            
+            FecharConexao();
         } catch (Exception e) {
+
         }
-        //Retorna a lista de clientes do banco de dados
-        return contatos; 
+        return contatos;
     }
 
+    public static List<Contato> listaPorTelefone(int telefone) {
+        List<Contato> contatos = new ArrayList<Contato>();
+        Connection con = getConexaoDB();
+
+        try {
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM contato  WHERE telefone LIKE %" + telefone + "%;");
+            ResultSet result = stmt.executeQuery();
+
+            while (result.next()) {
+                Contato contato = new Contato();
+                contato.setIdContato(result.getInt("id_contato"));
+                contato.setNome(result.getString("nome"));
+                contato.setDataNascimento(result.getDate("data_nasc"));
+                contato.setEmail(result.getString("email"));
+                contato.setSexo(result.getString("sexo").charAt(0));
+                contato.setFavorito(result.getBoolean("favorito"));
+                contato.setTipoTelefone(result.getInt("tipo_telefone"));
+
+                contatos.add(contato);
+
+            }
+            
+            result.close();
+            stmt.close();
+            FecharConexao();
+        } catch (Exception e) {
+
+        }
+return contatos;
+        
+    }
 }
