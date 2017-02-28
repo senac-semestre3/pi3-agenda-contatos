@@ -63,7 +63,7 @@ public class Principal extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        cbTipoTelefone = new javax.swing.JComboBox<>();
+        cbTipoTelefone = new javax.swing.JComboBox<String>();
         lblSexo = new javax.swing.JLabel();
         rdoMasculino = new javax.swing.JRadioButton();
         rdoFeminino = new javax.swing.JRadioButton();
@@ -76,7 +76,6 @@ public class Principal extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(470, 555));
         setPreferredSize(new java.awt.Dimension(470, 555));
 
-        panelContainerHeader.setBorder(null);
         panelContainerHeader.setLayout(new java.awt.CardLayout());
 
         panelHeaderPrincipal.setBackground(new java.awt.Color(201, 223, 255));
@@ -162,8 +161,8 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHeaderPrincipalLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(panelHeaderPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnDeletar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
-                            .addComponent(btnDeletar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE))))
+                            .addComponent(btnDeletar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                            .addComponent(btnDeletar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -255,8 +254,8 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(panelHeaderAdicionarLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)))
+                            .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)))
                     .addGroup(panelHeaderAdicionarLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,12 +266,10 @@ public class Principal extends javax.swing.JFrame {
 
         panelContainerHeader.add(panelHeaderAdicionar, "cardHeaderAdicionar");
 
-        panelMain.setBorder(null);
         panelMain.setLayout(new java.awt.CardLayout());
 
         scrollProcurar.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
 
-        tableProcurar.setBorder(null);
         tableProcurar.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         tableProcurar.setForeground(new java.awt.Color(55, 64, 77));
         tableProcurar.setModel(new javax.swing.table.DefaultTableModel(
@@ -361,7 +358,7 @@ public class Principal extends javax.swing.JFrame {
         cbTipoTelefone.setEditable(true);
         cbTipoTelefone.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         cbTipoTelefone.setForeground(new java.awt.Color(55, 64, 77));
-        cbTipoTelefone.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celular", "Casa", "Trabalho" }));
+        cbTipoTelefone.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Celular", "Casa", "Trabalho" }));
 
         lblSexo.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         lblSexo.setForeground(new java.awt.Color(55, 64, 77));
