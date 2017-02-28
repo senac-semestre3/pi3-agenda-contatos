@@ -62,7 +62,7 @@ public class Principal extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        cbTipoTelefone = new javax.swing.JComboBox<>();
+        cbTipoTelefone = new javax.swing.JComboBox<String>();
         lblSexo = new javax.swing.JLabel();
         rdoMasculino = new javax.swing.JRadioButton();
         rdoFeminino = new javax.swing.JRadioButton();
@@ -75,7 +75,6 @@ public class Principal extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(485, 560));
         setPreferredSize(new java.awt.Dimension(485, 560));
 
-        panelContainerHeader.setBorder(null);
         panelContainerHeader.setLayout(new java.awt.CardLayout());
 
         panelHeaderPrincipal.setBackground(new java.awt.Color(201, 223, 255));
@@ -161,8 +160,8 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHeaderPrincipalLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(panelHeaderPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnDeletar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
-                            .addComponent(btnDeletar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE))))
+                            .addComponent(btnDeletar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                            .addComponent(btnDeletar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -238,7 +237,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnVoltarContatos, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVoltarFavoritos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                 .addComponent(btnCancelar)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
@@ -254,8 +253,8 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(panelHeaderAdicionarLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)))
+                            .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)))
                     .addGroup(panelHeaderAdicionarLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,7 +265,6 @@ public class Principal extends javax.swing.JFrame {
 
         panelContainerHeader.add(panelHeaderAdicionar, "cardHeaderAdicionar");
 
-        panelMain.setBorder(null);
         panelMain.setLayout(new java.awt.CardLayout());
 
         tableProcurar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -306,7 +304,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(panelProcurarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollProcurar, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                    .addComponent(scrollProcurar, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                     .addGroup(panelProcurarLayout.createSequentialGroup()
                         .addComponent(txtProcurarContato)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,7 +319,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(txtProcurarContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProcurarContato, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollProcurar, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+                .addComponent(scrollProcurar, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE))
         );
 
         panelProcurarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnProcurarContato, txtProcurarContato});
@@ -391,7 +389,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(panelFavoritosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelFavoritosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollFavoritos, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                    .addComponent(scrollFavoritos, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
                     .addGroup(panelFavoritosLayout.createSequentialGroup()
                         .addComponent(txtProcurarFavorito)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -406,7 +404,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(txtProcurarFavorito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProcurarFavorito, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollFavoritos, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+                .addComponent(scrollFavoritos, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE))
         );
 
         panelMain.add(panelFavoritos, "card4");
@@ -464,7 +462,7 @@ public class Principal extends javax.swing.JFrame {
         cbTipoTelefone.setEditable(true);
         cbTipoTelefone.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         cbTipoTelefone.setForeground(new java.awt.Color(55, 64, 77));
-        cbTipoTelefone.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celular", "Casa", "Trabalho" }));
+        cbTipoTelefone.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Celular", "Casa", "Trabalho" }));
 
         lblSexo.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         lblSexo.setForeground(new java.awt.Color(55, 64, 77));
@@ -534,7 +532,7 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(panelAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblSexo1)
-                            .addComponent(txtDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)))
+                            .addComponent(txtDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)))
                     .addGroup(panelAdicionarLayout.createSequentialGroup()
                         .addGroup(panelAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTelefone)
@@ -589,7 +587,7 @@ public class Principal extends javax.swing.JFrame {
             .addComponent(panelContainerHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(panelMain, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

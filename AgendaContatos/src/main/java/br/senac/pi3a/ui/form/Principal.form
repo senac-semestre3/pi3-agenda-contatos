@@ -57,11 +57,6 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="panelContainerHeader">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
-        </Property>
-      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
       <SubComponents>
@@ -220,7 +215,7 @@
                       <Component id="btnVoltarContatos" linkSize="10" min="-2" pref="79" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnVoltarFavoritos" linkSize="10" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="163" max="32767" attributes="0"/>
+                      <EmptySpace pref="125" max="32767" attributes="0"/>
                       <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
@@ -351,11 +346,6 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="panelMain">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
-        </Property>
-      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
       <SubComponents>
@@ -372,7 +362,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollProcurar" pref="437" max="32767" attributes="0"/>
+                          <Component id="scrollProcurar" pref="445" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="txtProcurarContato" max="32767" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -392,7 +382,7 @@
                           <Component id="btnProcurarContato" linkSize="12" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollProcurar" pref="387" max="32767" attributes="0"/>
+                      <Component id="scrollProcurar" pref="395" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -477,7 +467,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollFavoritos" alignment="0" pref="437" max="32767" attributes="0"/>
+                          <Component id="scrollFavoritos" alignment="0" pref="445" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtProcurarFavorito" max="32767" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -497,7 +487,7 @@
                           <Component id="btnProcurarFavorito" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                      <Component id="scrollFavoritos" pref="387" max="32767" attributes="0"/>
+                      <Component id="scrollFavoritos" pref="395" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -642,7 +632,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblSexo1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtDataNascimento" alignment="0" pref="212" max="32767" attributes="0"/>
+                                  <Component id="txtDataNascimento" alignment="0" pref="239" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
