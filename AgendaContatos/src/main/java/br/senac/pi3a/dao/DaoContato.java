@@ -9,7 +9,7 @@ import static br.senac.pi3a.dao.DBConnector.FecharConexao;
 import static br.senac.pi3a.dao.DBConnector.getConexaoDB;
 import br.senac.pi3a.model.Contato;
 import java.sql.Connection;
-import br.senac.pi3a.utils.ConnectionUtils;
+//import br.senac.pi3a.utils.ConnectionUtils;
 import java.net.ConnectException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
