@@ -75,9 +75,14 @@ public class DaoContato {
             stmt.execute();
             //Fecha
             stmt.close();
+            
+            FecharConexao();
 
         } catch (SQLException e) {
+            System.err.println(e.getMessage());
             throw new RuntimeException(e);
+        }finally{
+            FecharConexao();
         }
 
     }
@@ -149,6 +154,8 @@ public class DaoContato {
             FecharConexao();
         } catch (Exception e) {
 
+        }finally{
+            FecharConexao();
         }
         return contatos;
     }
@@ -159,7 +166,7 @@ public class DaoContato {
         Connection con = getConexaoDB();
 
         try {
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM `contato` WHERE nome LIKE %" + nome + "%");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM contato WHERE nome LIKE '%" + nome + "%'");
             ResultSet result = stmt.executeQuery();
 
             while (result.next()) {
@@ -179,8 +186,11 @@ public class DaoContato {
             result.close();
             stmt.close();
             FecharConexao();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
 
+        }finally{
+            FecharConexao();
         }
         return contatos;
     }
@@ -190,7 +200,7 @@ public class DaoContato {
         Connection con = getConexaoDB();
 
         try {
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM contato  WHERE telefone LIKE %" + telefone + "%;");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM contato  WHERE telefone LIKE '%" + telefone + "%';");
             ResultSet result = stmt.executeQuery();
 
             while (result.next()) {
@@ -212,7 +222,10 @@ public class DaoContato {
             FecharConexao();
         } catch (Exception e) {
 
-        }
+        }finally{
+            FecharConexao();
+        
+    }
 return contatos;
         
     }

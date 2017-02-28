@@ -18,19 +18,19 @@ public class TesteConexao {
 
         conexao.getConexaoDB();
 
-        Contato c = new Contato();
-        c.setNome("Teste");
-        c.setEmail("email@email");
-        c.setSexo('c');
-        c.setDataNascimento(Date.valueOf("2017-01-01")); // insere data teste
-        c.setFavorito(true); 
-        c.setTipoTelefone(2);
-        c.setTelefone("11955586");
-        DaoContato daoc = new DaoContato();
+//        Contato c = new Contato();
+//        c.setNome("Everton");
+//        c.setEmail("Everton@email");
+//        c.setSexo('m');
+//        c.setDataNascimento(Date.valueOf("2017-01-01")); // insere data teste
+//        c.setFavorito(true); 
+//        c.setTipoTelefone(2);
+//        c.setTelefone("11955586");
+//        DaoContato daoc = new DaoContato();
+//
+//        daoc.insereContato(c);
 
-        daoc.insereContato(c);
-
-        List<Contato> contatos = DaoContato.listarTodos("select * from contato");
+        List<Contato> contatos = DaoContato.listaPorTelefone(888);
 
         
 
@@ -40,7 +40,7 @@ public class TesteConexao {
 
         }
 
-        System.out.println(conexao.statusConexao());
+//        System.out.println(conexao.statusConexao());
 
     }
 }

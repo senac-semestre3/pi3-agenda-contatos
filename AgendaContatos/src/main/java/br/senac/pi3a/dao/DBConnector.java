@@ -39,6 +39,7 @@ public class DBConnector {
             String password = "L@la280789"; //senha de acesso
 
           // banco do everton String password = "P@ssw0rd"; //senha de acesso
+            //Conexxão local
             //connection = DriverManager.getConnection(url, username, password);
            
             //Conexão com servidor de banco web
@@ -66,9 +67,9 @@ public class DBConnector {
 
             //Não conseguindo se conectar ao banco
             System.out.println("Nao foi possivel conectar ao Banco de Dados.");
-
+            
+            System.err.println(e.getMessage());
             return null;
-
         }
 
     }
