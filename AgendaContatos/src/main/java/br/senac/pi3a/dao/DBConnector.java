@@ -26,9 +26,7 @@ public class DBConnector {
 
             // Carregando o JDBC Driver padrão
             //String driverName = "com.mysql.jdbc.Driver";
-
             //Class.forName(driverName);
-
             // Configurando a conexão com um banco de dados
             String serverName = "localhost"; // caminho do servidor do db
 
@@ -41,9 +39,10 @@ public class DBConnector {
             String password = "L@la280789"; //senha de acesso
 
           // banco do everton String password = "P@ssw0rd"; //senha de acesso
-
-            connection = DriverManager.getConnection(url, username, password);
-
+            //connection = DriverManager.getConnection(url, username, password);
+           
+            //Conexão com servidor de banco web
+            connection = DriverManager.getConnection("jdbc:mysql://cloud.kwcraft.com.br:3306/agenda_contatos?zeroDateTimeBehavior=convertToNull", "agenda", "P@ssw0rd");
             //Testando a conexão 
             if (connection != null) {
 
@@ -57,12 +56,12 @@ public class DBConnector {
 
             return connection;
 
-        /*} catch (ClassNotFoundException e) { // Driver não encontrado
+            /*} catch (ClassNotFoundException e) { // Driver não encontrado
 
-            System.out.println("O driver expecificado nao foi encontrado.");
+             System.out.println("O driver expecificado nao foi encontrado.");
 
-            return null;
-        */
+             return null;
+             */
         } catch (SQLException e) {
 
             //Não conseguindo se conectar ao banco
