@@ -1,16 +1,7 @@
-/*
- * Core
- * cabeçalho:           #19A993 (Verde agua)
- * cabeçalho_opção2:    #73C778 (verde)    
- * selecionado:         #FFE57F (Amarelo)
- * selecionado_escuro:  #D4BB33 (mostarda)
- * Opções_claro:        #F1F1F1 (branco)
- */
+
 package br.senac.pi3a.ui.form;
 
 import java.awt.CardLayout;
-import javax.swing.JOptionPane;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -51,8 +42,16 @@ public class Principal extends javax.swing.JFrame {
         btnVoltarContatos = new javax.swing.JButton();
         btnVoltarFavoritos = new javax.swing.JButton();
         panelMain = new javax.swing.JPanel();
+        panelProcurar = new javax.swing.JPanel();
         scrollProcurar = new javax.swing.JScrollPane();
         tableProcurar = new javax.swing.JTable();
+        txtProcurarContato = new javax.swing.JTextField();
+        btnProcurarContato = new javax.swing.JButton();
+        panelFavoritos = new javax.swing.JPanel();
+        scrollFavoritos = new javax.swing.JScrollPane();
+        tableFavorito = new javax.swing.JTable();
+        txtProcurarFavorito = new javax.swing.JTextField();
+        btnProcurarFavorito = new javax.swing.JButton();
         panelAdicionar = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
         lblSobrenome = new javax.swing.JLabel();
@@ -73,8 +72,8 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(201, 223, 255));
-        setMinimumSize(new java.awt.Dimension(470, 555));
-        setPreferredSize(new java.awt.Dimension(470, 555));
+        setMinimumSize(new java.awt.Dimension(485, 560));
+        setPreferredSize(new java.awt.Dimension(485, 560));
 
         panelContainerHeader.setBorder(null);
         panelContainerHeader.setLayout(new java.awt.CardLayout());
@@ -149,7 +148,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(163, 163, 163)
                 .addComponent(btnDeletar1)
                 .addGap(18, 18, 18)
-                .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
+                .addComponent(btnDeletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelHeaderPrincipalLayout.setVerticalGroup(
@@ -239,7 +238,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnVoltarContatos, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVoltarFavoritos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
                 .addComponent(btnCancelar)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
@@ -270,43 +269,147 @@ public class Principal extends javax.swing.JFrame {
         panelMain.setBorder(null);
         panelMain.setLayout(new java.awt.CardLayout());
 
-        scrollProcurar.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-
-        tableProcurar.setBorder(null);
-        tableProcurar.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        tableProcurar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tableProcurar.setForeground(new java.awt.Color(55, 64, 77));
         tableProcurar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Nome", "Telefone"
+
             }
         ));
-        tableProcurar.setToolTipText("");
-        tableProcurar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tableProcurar.setGridColor(new java.awt.Color(55, 64, 77));
-        tableProcurar.setRowHeight(35);
+        tableProcurar.setRowHeight(30);
         tableProcurar.setSelectionBackground(new java.awt.Color(201, 223, 255));
         tableProcurar.setSelectionForeground(new java.awt.Color(55, 64, 77));
         tableProcurar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tableProcurar.setSurrendersFocusOnKeystroke(true);
         scrollProcurar.setViewportView(tableProcurar);
-        if (tableProcurar.getColumnModel().getColumnCount() > 0) {
-            tableProcurar.getColumnModel().getColumn(0).setResizable(false);
-            tableProcurar.getColumnModel().getColumn(1).setResizable(false);
+
+        txtProcurarContato.setForeground(new java.awt.Color(135, 128, 128));
+        txtProcurarContato.setText("Procurar...");
+        txtProcurarContato.setMargin(new java.awt.Insets(5, 10, 5, 10));
+
+        btnProcurarContato.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        btnProcurarContato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senac/pi3a/ui/resources/procurar.png"))); // NOI18N
+        btnProcurarContato.setBorderPainted(false);
+        btnProcurarContato.setContentAreaFilled(false);
+        btnProcurarContato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcurarContatoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelProcurarLayout = new javax.swing.GroupLayout(panelProcurar);
+        panelProcurar.setLayout(panelProcurarLayout);
+        panelProcurarLayout.setHorizontalGroup(
+            panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProcurarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollProcurar, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                    .addGroup(panelProcurarLayout.createSequentialGroup()
+                        .addComponent(txtProcurarContato)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProcurarContato, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        panelProcurarLayout.setVerticalGroup(
+            panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProcurarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtProcurarContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProcurarContato, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollProcurar, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+        );
+
+        panelProcurarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnProcurarContato, txtProcurarContato});
+
+        panelMain.add(panelProcurar, "card4");
+
+        tableFavorito.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        tableFavorito.setForeground(new java.awt.Color(55, 64, 77));
+        tableFavorito.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nome", "Telefone", "Favorito"
+            }
+        ));
+        tableFavorito.setRowHeight(30);
+        tableFavorito.setSelectionBackground(new java.awt.Color(201, 223, 255));
+        tableFavorito.setSelectionForeground(new java.awt.Color(55, 64, 77));
+        scrollFavoritos.setViewportView(tableFavorito);
+        if (tableFavorito.getColumnModel().getColumnCount() > 0) {
+            tableFavorito.getColumnModel().getColumn(0).setHeaderValue("Nome");
+            tableFavorito.getColumnModel().getColumn(1).setHeaderValue("Telefone");
+            tableFavorito.getColumnModel().getColumn(2).setMinWidth(70);
+            tableFavorito.getColumnModel().getColumn(2).setPreferredWidth(70);
+            tableFavorito.getColumnModel().getColumn(2).setMaxWidth(70);
+            tableFavorito.getColumnModel().getColumn(2).setHeaderValue("Favorito");
         }
 
-        panelMain.add(scrollProcurar, "cardProcurar");
+        txtProcurarFavorito.setForeground(new java.awt.Color(135, 128, 128));
+        txtProcurarFavorito.setText("Procurar favorito...");
+        txtProcurarFavorito.setMargin(new java.awt.Insets(5, 10, 5, 10));
+
+        btnProcurarFavorito.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        btnProcurarFavorito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senac/pi3a/ui/resources/procurar.png"))); // NOI18N
+        btnProcurarFavorito.setBorderPainted(false);
+        btnProcurarFavorito.setContentAreaFilled(false);
+        btnProcurarFavorito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcurarFavoritoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelFavoritosLayout = new javax.swing.GroupLayout(panelFavoritos);
+        panelFavoritos.setLayout(panelFavoritosLayout);
+        panelFavoritosLayout.setHorizontalGroup(
+            panelFavoritosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFavoritosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelFavoritosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollFavoritos, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                    .addGroup(panelFavoritosLayout.createSequentialGroup()
+                        .addComponent(txtProcurarFavorito)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProcurarFavorito, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        panelFavoritosLayout.setVerticalGroup(
+            panelFavoritosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFavoritosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelFavoritosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtProcurarFavorito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProcurarFavorito, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollFavoritos, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+        );
+
+        panelMain.add(panelFavoritos, "card4");
 
         panelAdicionar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Adicionar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 15), new java.awt.Color(55, 64, 77))); // NOI18N
         panelAdicionar.setForeground(new java.awt.Color(55, 64, 77));
@@ -431,7 +534,7 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(panelAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblSexo1)
-                            .addComponent(txtDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)))
+                            .addComponent(txtDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)))
                     .addGroup(panelAdicionarLayout.createSequentialGroup()
                         .addGroup(panelAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTelefone)
@@ -545,6 +648,14 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVoltarFavoritosActionPerformed
 
+    private void btnProcurarFavoritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarFavoritoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProcurarFavoritoActionPerformed
+
+    private void btnProcurarContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarContatoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProcurarContatoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -587,6 +698,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnDeletar1;
     private javax.swing.JButton btnFavoritos;
     private javax.swing.ButtonGroup btnGpSexo;
+    private javax.swing.JButton btnProcurarContato;
+    private javax.swing.JButton btnProcurarFavorito;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltarContatos;
     private javax.swing.JButton btnVoltarFavoritos;
@@ -600,17 +713,23 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JPanel panelAdicionar;
     private javax.swing.JPanel panelContainerHeader;
+    private javax.swing.JPanel panelFavoritos;
     private javax.swing.JPanel panelHeaderAdicionar;
     private javax.swing.JPanel panelHeaderPrincipal;
     private javax.swing.JPanel panelMain;
+    private javax.swing.JPanel panelProcurar;
     private javax.swing.JRadioButton rdoFeminino;
     private javax.swing.JRadioButton rdoMasculino;
+    private javax.swing.JScrollPane scrollFavoritos;
     private javax.swing.JScrollPane scrollProcurar;
     private javax.swing.JSeparator separador;
+    private javax.swing.JTable tableFavorito;
     private javax.swing.JTable tableProcurar;
     private javax.swing.JFormattedTextField txtDataNascimento;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtProcurarContato;
+    private javax.swing.JTextField txtProcurarFavorito;
     private javax.swing.JTextField txtSobrenome;
     private javax.swing.JTextField txtTelefone;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

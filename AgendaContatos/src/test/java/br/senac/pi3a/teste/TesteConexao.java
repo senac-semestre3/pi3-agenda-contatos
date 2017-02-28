@@ -12,10 +12,10 @@ import br.senac.pi3a.dao.DBConnector;
  * @author everton
  */
 public class TesteConexao {
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
         DBConnector conexao = new DBConnector();
         
         conexao.getConexaoDB();
         System.out.println(conexao.statusConexao());
-    }*/
+    }
 }
