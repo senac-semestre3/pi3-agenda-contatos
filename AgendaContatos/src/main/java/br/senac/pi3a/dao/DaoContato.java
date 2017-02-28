@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import br.senac.pi3a.exceptions.DuplicateException;
+
 
 /**
  *
@@ -32,7 +32,7 @@ public class DaoContato {
     }
 
     //public void inserirContato(Contato contato)
-    public void insereContato(Contato contato) throws DuplicateException {
+    public void insereContato(Contato contato) throws RuntimeException {
         String sql = "INSERT INTO contato ("
                 + "nome, "
                 + "data_nasc, "
@@ -69,11 +69,13 @@ public class DaoContato {
             stmt.close();
 
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1062) {
-                throw new DuplicateException("CONTATO EXISTENTE!");
-            }
-            throw new RuntimeException(e);
+                 throw new RuntimeException(e);
         }
 
     }
+
+    
+
+
+
 }

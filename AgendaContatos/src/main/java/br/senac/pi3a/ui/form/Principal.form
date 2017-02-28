@@ -36,7 +36,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panelContainerHeader" max="32767" attributes="0"/>
+          <Component id="panelContainerHeader" pref="470" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelMain" pref="0" max="32767" attributes="0"/>
@@ -83,7 +83,7 @@
                       <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
                       <Component id="btnDeletar1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnDeletar" pref="50" max="32767" attributes="0"/>
+                      <Component id="btnDeletar" pref="55" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -215,7 +215,7 @@
                       <Component id="btnVoltarContatos" linkSize="10" min="-2" pref="79" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnVoltarFavoritos" linkSize="10" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="159" max="32767" attributes="0"/>
+                      <EmptySpace pref="110" max="32767" attributes="0"/>
                       <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
@@ -475,7 +475,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblSexo1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtDataNascimento" alignment="0" pref="210" max="32767" attributes="0"/>
+                                  <Component id="txtDataNascimento" alignment="0" pref="224" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -679,6 +679,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbTipoTelefoneActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>

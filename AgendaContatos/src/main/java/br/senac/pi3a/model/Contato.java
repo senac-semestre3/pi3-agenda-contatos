@@ -18,7 +18,7 @@ public class Contato {
     private String telefone;
     private String email;
     private char sexo;
-    private boolean favorito;
+    private boolean favorito =false;
 
     
     // geters e seters

@@ -148,7 +148,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(163, 163, 163)
                 .addComponent(btnDeletar1)
                 .addGap(18, 18, 18)
-                .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
+                .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelHeaderPrincipalLayout.setVerticalGroup(
@@ -238,7 +238,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnVoltarContatos, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVoltarFavoritos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                 .addComponent(btnCancelar)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar)
@@ -359,6 +359,11 @@ public class Principal extends javax.swing.JFrame {
         cbTipoTelefone.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         cbTipoTelefone.setForeground(new java.awt.Color(55, 64, 77));
         cbTipoTelefone.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Celular", "Casa", "Trabalho" }));
+        cbTipoTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoTelefoneActionPerformed(evt);
+            }
+        });
 
         lblSexo.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         lblSexo.setForeground(new java.awt.Color(55, 64, 77));
@@ -428,7 +433,7 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(panelAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblSexo1)
-                            .addComponent(txtDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)))
+                            .addComponent(txtDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)))
                     .addGroup(panelAdicionarLayout.createSequentialGroup()
                         .addGroup(panelAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTelefone)
@@ -480,7 +485,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelContainerHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelContainerHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -541,6 +546,10 @@ public class Principal extends javax.swing.JFrame {
     private void btnVoltarFavoritosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarFavoritosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVoltarFavoritosActionPerformed
+
+    private void cbTipoTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoTelefoneActionPerformed
 
     /**
      * @param args the command line arguments
