@@ -37,8 +37,10 @@ public class DBConnector {
             String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
 
             String username = "root"; //nome de um usuário do db      
+            //Meu  banco
+            String password = "L@la280789"; //senha de acesso
 
-            String password = "P@ssw0rd"; //senha de acesso
+          // banco do everton String password = "P@ssw0rd"; //senha de acesso
 
             connection = DriverManager.getConnection(url, username, password);
 

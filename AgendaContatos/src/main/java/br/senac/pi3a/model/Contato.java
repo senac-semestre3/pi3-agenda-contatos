@@ -18,6 +18,7 @@ public class Contato {
     private String telefone;
     private String email;
     private char sexo;
+    private boolean favorito =false;
 
     
     // geters e seters
@@ -59,6 +60,14 @@ public class Contato {
 
     public void setSexo(char sexo) {
         this.sexo = sexo;
+    }
+    
+    public boolean getFavorito(){
+        return favorito;
+    }
+    
+    public void setFavorito(boolean favorito){
+        this.favorito = favorito;
     }
     
     
