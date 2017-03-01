@@ -7,7 +7,6 @@ package br.senac.pi3a.dao;
 
 import br.senac.pi3a.model.Contato;
 import java.sql.Connection;
-import br.senac.pi3a.utils.ConnectionUtils;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -69,7 +68,7 @@ public class DaoContato {
             stmt.close();
 
         } catch (SQLException e) {
-                 throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
 
     }
