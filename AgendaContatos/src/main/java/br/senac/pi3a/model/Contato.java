@@ -13,6 +13,8 @@ import java.util.Date;
  * @author everton
  */
 public class Contato {
+
+    private int id_contato;
     private String nome;
     private Date dataNascimento;
     private String telefone;
@@ -25,16 +27,15 @@ public class Contato {
         this.favorito = false;
     }
 
-    public int getTipoTelefone() {
-        return tipoTelefone;
-    }
-
-    public void setTipoTelefone(int tipoTelefone) {
-        this.tipoTelefone = tipoTelefone;
-    }
-
-    
     // geters e seters
+    public int getIdContato() {
+        return id_contato;
+    }
+
+    public void setIdContato(int id_contato) {
+        this.id_contato = id_contato;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -59,6 +60,14 @@ public class Contato {
         this.telefone = telefone;
     }
 
+    public int getTipoTelefone() {
+        return tipoTelefone;
+    }
+
+    public void setTipoTelefone(int tipoTelefone) {
+        this.tipoTelefone = tipoTelefone;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -66,7 +75,7 @@ public class Contato {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public int getSexo() {
         return sexo;
     }
@@ -74,14 +83,12 @@ public class Contato {
     public void setSexo(int sexo) {
         this.sexo = sexo;
     }
-    
-    public boolean getFavorito(){
+
+    public boolean getFavorito() {
         return favorito;
     }
-    
-    public void setFavorito(boolean favorito){
+
+    public void setFavorito(boolean favorito) {
         this.favorito = favorito;
     }
-    
-    
 }
