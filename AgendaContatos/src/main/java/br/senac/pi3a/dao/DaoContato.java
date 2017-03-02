@@ -32,21 +32,19 @@ public class DaoContato {
     }
 
     //public void inserirContato(Contato contato)
-    public void insereContato(Contato contato) throws RuntimeException {
+    public void inserirContato(Contato contato) throws RuntimeException {
         String sql = "INSERT INTO contato ("
                 + "nome, "
                 + "data_nasc, "
                 + "telefone, "
                 + "tipo_telefone, "
                 + "email, "
-                + "sexo,"
-                + "favorito,"
+                + "sexo, "
+                + "favorito)"
                 + " VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try {
-
-            // prepared statement para inserção
-            PreparedStatement stmt = this.connection.prepareStatement(sql);
+        try ( // prepared statement para inserção
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             //Seta valores para inserção
             //Insere nome
@@ -69,23 +67,24 @@ public class DaoContato {
             //Executa SQL Statement
             stmt.execute();
             //Fecha
-            stmt.close();
-
-            FecharConexao();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             FecharConexao();
         }
+        FecharConexao();
 
     }
 
     //retorna uma lista de contatos
-    public static List<Contato> listarTodos(String sql) throws
+    public static List<Contato> listarTodos() throws
             SQLException, Exception {
+        
+        String sql = "SELECT * FROM contato";
+        
         //Cria lista de contatos
-        List<Contato> contatos = new ArrayList<Contato>();
+        List<Contato> contatos = new ArrayList<>();
         //Abre conexão
         Connection con = getConexaoDB();
 
@@ -101,6 +100,7 @@ public class DaoContato {
                 contato.setIdContato(result.getInt("id_contato"));
                 contato.setNome(result.getString("nome"));
                 contato.setDataNascimento(result.getDate("data_nasc"));
+                contato.setTelefone(result.getString("telefone"));
                 contato.setEmail(result.getString("email"));
                 contato.setSexo(result.getString("sexo").charAt(0));
                 contato.setFavorito(result.getBoolean("favorito"));
@@ -115,18 +115,18 @@ public class DaoContato {
             FecharConexao();
 
         } catch (Exception e) {
-
+            throw new RuntimeException(e);
         }
         //Retorna a lista de clientes do banco de dados
         return contatos;
     }
 
-    public static List<Contato> listaPorId(int id_contato) {
+    public static List<Contato> listaPorId(int id) {
         List<Contato> contatos = new ArrayList<Contato>();
         Connection con = getConexaoDB();
 
         try {
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM contato WHERE id_contato = " + id_contato + ";");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM contato WHERE id_contato = " + id + ";");
 
             ResultSet result = stmt.executeQuery();
 
@@ -148,7 +148,7 @@ public class DaoContato {
             stmt.close();
             FecharConexao();
         } catch (Exception e) {
-
+            throw new RuntimeException(e);
         } finally {
             FecharConexao();
         }
@@ -218,12 +218,11 @@ public class DaoContato {
             stmt.close();
             FecharConexao();
         } catch (Exception e) {
-
+            throw new RuntimeException(e);
         } finally {
             FecharConexao();
 
         }
         return contatos;
-
     }
 }

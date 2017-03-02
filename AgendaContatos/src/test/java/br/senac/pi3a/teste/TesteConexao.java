@@ -4,7 +4,6 @@ import br.senac.pi3a.dao.DBConnector;
 import br.senac.pi3a.dao.DaoContato;
 import br.senac.pi3a.model.Contato;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,30 +16,24 @@ public class TesteConexao {
         DBConnector conexao = new DBConnector();
 
         conexao.getConexaoDB();
+        conexao.statusConexao();
+        
+        /*
+        Contato c = new Contato();
+        c.setNome("Everton");
+        c.setEmail("Everton@email");
+        c.setSexo(2);
+        c.setDataNascimento(Date.valueOf("1993-04-02")); // insere data teste
+        c.setFavorito(true); 
+        c.setTipoTelefone(2);
+        c.setTelefone("11955586");
+        DaoContato daoc = new DaoContato();
 
-//        Contato c = new Contato();
-//        c.setNome("Everton");
-//        c.setEmail("Everton@email");
-//        c.setSexo('m');
-//        c.setDataNascimento(Date.valueOf("2017-01-01")); // insere data teste
-//        c.setFavorito(true); 
-//        c.setTipoTelefone(2);
-//        c.setTelefone("11955586");
-//        DaoContato daoc = new DaoContato();
-//
-//        daoc.insereContato(c);
-
-        List<Contato> contatos = DaoContato.listaPorTelefone(888);
-
+        daoc.insereContato(c);
+        */
         
 
-        for (Contato contato : contatos) {
-            System.out.println("Nome: " + contato.getNome());
-            System.out.println("Email: " + contato.getEmail());
-
-        }
-
-//        System.out.println(conexao.statusConexao());
+        System.out.println(conexao.statusConexao());
 
     }
 }

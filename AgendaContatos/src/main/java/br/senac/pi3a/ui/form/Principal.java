@@ -1,14 +1,17 @@
 
 package br.senac.pi3a.ui.form;
 
+import br.senac.pi3a.exceptions.ContatoException;
 import br.senac.pi3a.model.Contato;
 import br.senac.pi3a.services.ServiceContato;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,9 +19,8 @@ import javax.swing.JOptionPane;
  */
 public class Principal extends javax.swing.JFrame {
     public javax.swing.JPanel cardlayout;
-    private boolean contatoClicado = false;
-    private boolean favoritoClicado = false;
-    
+    private boolean contatoClicado = false;// Para verificar se o button contato está clicado
+    private String busca = null;
     
     /**
      * Creates new form Principal
@@ -37,17 +39,20 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         panelContainerHeader = new javax.swing.JPanel();
-        panelHeaderAdicionar = new javax.swing.JPanel();
-        btnVoltarContatos = new javax.swing.JButton();
-        btnVoltarFavoritos = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
         panelHeaderPrincipal = new javax.swing.JPanel();
         btnContatos = new javax.swing.JButton();
-        btnFavoritos = new javax.swing.JButton();
         btnAdicionar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
+        panelHeaderAdicionar = new javax.swing.JPanel();
+        btnVoltarContatos = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         panelMain = new javax.swing.JPanel();
+        panelProcurar = new javax.swing.JPanel();
+        txtProcurarContato = new javax.swing.JTextField();
+        btnProcurarContato = new javax.swing.JButton();
+        scrollProcurar = new javax.swing.JScrollPane();
+        tableProcurar = new javax.swing.JTable();
         panelAdicionar = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
         lblSobrenome = new javax.swing.JLabel();
@@ -64,11 +69,6 @@ public class Principal extends javax.swing.JFrame {
         txtDataNascimento = new javax.swing.JFormattedTextField();
         ckbFavorito = new javax.swing.JCheckBox();
         cboSexo = new javax.swing.JComboBox<>();
-        panelProcurar = new javax.swing.JPanel();
-        scrollProcurar = new javax.swing.JScrollPane();
-        tableProcurar = new javax.swing.JTable();
-        txtProcurarContato = new javax.swing.JTextField();
-        btnProcurarContato = new javax.swing.JButton();
         panelFavoritos = new javax.swing.JPanel();
         scrollFavoritos = new javax.swing.JScrollPane();
         tableFavorito = new javax.swing.JTable();
@@ -80,105 +80,6 @@ public class Principal extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(485, 560));
 
         panelContainerHeader.setLayout(new java.awt.CardLayout());
-
-        panelHeaderAdicionar.setBackground(new java.awt.Color(201, 223, 255));
-
-        btnVoltarContatos.setBackground(new java.awt.Color(25, 169, 147));
-        btnVoltarContatos.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        btnVoltarContatos.setForeground(new java.awt.Color(55, 64, 77));
-        btnVoltarContatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/contato_md.png"))); // NOI18N
-        btnVoltarContatos.setText("Contatos");
-        btnVoltarContatos.setBorder(null);
-        btnVoltarContatos.setBorderPainted(false);
-        btnVoltarContatos.setContentAreaFilled(false);
-        btnVoltarContatos.setFocusPainted(false);
-        btnVoltarContatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnVoltarContatos.setMaximumSize(new java.awt.Dimension(58, 69));
-        btnVoltarContatos.setMinimumSize(new java.awt.Dimension(58, 69));
-        btnVoltarContatos.setPreferredSize(new java.awt.Dimension(58, 69));
-        btnVoltarContatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnVoltarContatos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnVoltarContatosMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnVoltarContatosMouseExited(evt);
-            }
-        });
-
-        btnVoltarFavoritos.setBackground(new java.awt.Color(25, 169, 147));
-        btnVoltarFavoritos.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        btnVoltarFavoritos.setForeground(new java.awt.Color(55, 64, 77));
-        btnVoltarFavoritos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/favorito_md.png"))); // NOI18N
-        btnVoltarFavoritos.setText("Favoritos");
-        btnVoltarFavoritos.setBorder(null);
-        btnVoltarFavoritos.setContentAreaFilled(false);
-        btnVoltarFavoritos.setFocusPainted(false);
-        btnVoltarFavoritos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnVoltarFavoritos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnVoltarFavoritos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnVoltarFavoritosMouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnVoltarFavoritosMouseEntered(evt);
-            }
-        });
-
-        btnCancelar.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cancelar_xs.png"))); // NOI18N
-        btnCancelar.setBorderPainted(false);
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
-        btnSalvar.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/salvar_xs.png"))); // NOI18N
-        btnSalvar.setBorderPainted(false);
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelHeaderAdicionarLayout = new javax.swing.GroupLayout(panelHeaderAdicionar);
-        panelHeaderAdicionar.setLayout(panelHeaderAdicionarLayout);
-        panelHeaderAdicionarLayout.setHorizontalGroup(
-            panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHeaderAdicionarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnVoltarContatos, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnVoltarFavoritos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalvar)
-                .addContainerGap())
-        );
-
-        panelHeaderAdicionarLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnVoltarContatos, btnVoltarFavoritos});
-
-        panelHeaderAdicionarLayout.setVerticalGroup(
-            panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHeaderAdicionarLayout.createSequentialGroup()
-                .addGroup(panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelHeaderAdicionarLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(panelHeaderAdicionarLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnVoltarContatos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(btnVoltarFavoritos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-                .addContainerGap())
-        );
-
-        panelContainerHeader.add(panelHeaderAdicionar, "cardHeaderAdicionar");
 
         panelHeaderPrincipal.setBackground(new java.awt.Color(201, 223, 255));
 
@@ -208,31 +109,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnFavoritos.setBackground(new java.awt.Color(25, 169, 147));
-        btnFavoritos.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        btnFavoritos.setForeground(new java.awt.Color(55, 64, 77));
-        btnFavoritos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/favorito_md.png"))); // NOI18N
-        btnFavoritos.setText("Favoritos");
-        btnFavoritos.setBorder(null);
-        btnFavoritos.setBorderPainted(false);
-        btnFavoritos.setContentAreaFilled(false);
-        btnFavoritos.setFocusPainted(false);
-        btnFavoritos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnFavoritos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnFavoritos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnFavoritosMouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnFavoritosMouseEntered(evt);
-            }
-        });
-        btnFavoritos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFavoritosActionPerformed(evt);
-            }
-        });
-
         btnAdicionar.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         btnAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adicionar_xs.png"))); // NOI18N
         btnAdicionar.setBorderPainted(false);
@@ -251,9 +127,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(panelHeaderPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnContatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btnFavoritos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(163, 163, 163)
+                .addGap(249, 249, 249)
                 .addComponent(btnAdicionar)
                 .addGap(18, 18, 18)
                 .addComponent(btnDeletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -265,7 +139,6 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelHeaderPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnContatos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnFavoritos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHeaderPrincipalLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(panelHeaderPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,7 +149,179 @@ public class Principal extends javax.swing.JFrame {
 
         panelContainerHeader.add(panelHeaderPrincipal, "cardHeaderPrincipal");
 
+        panelHeaderAdicionar.setBackground(new java.awt.Color(201, 223, 255));
+
+        btnVoltarContatos.setBackground(new java.awt.Color(25, 169, 147));
+        btnVoltarContatos.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        btnVoltarContatos.setForeground(new java.awt.Color(55, 64, 77));
+        btnVoltarContatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/contato_md.png"))); // NOI18N
+        btnVoltarContatos.setText("Contatos");
+        btnVoltarContatos.setBorder(null);
+        btnVoltarContatos.setBorderPainted(false);
+        btnVoltarContatos.setContentAreaFilled(false);
+        btnVoltarContatos.setFocusPainted(false);
+        btnVoltarContatos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnVoltarContatos.setMaximumSize(new java.awt.Dimension(58, 69));
+        btnVoltarContatos.setMinimumSize(new java.awt.Dimension(58, 69));
+        btnVoltarContatos.setPreferredSize(new java.awt.Dimension(58, 69));
+        btnVoltarContatos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnVoltarContatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVoltarContatosMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVoltarContatosMouseEntered(evt);
+            }
+        });
+
+        btnCancelar.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cancelar_xs.png"))); // NOI18N
+        btnCancelar.setBorderPainted(false);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnSalvar.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/salvar_xs.png"))); // NOI18N
+        btnSalvar.setBorderPainted(false);
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelHeaderAdicionarLayout = new javax.swing.GroupLayout(panelHeaderAdicionar);
+        panelHeaderAdicionar.setLayout(panelHeaderAdicionarLayout);
+        panelHeaderAdicionarLayout.setHorizontalGroup(
+            panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHeaderAdicionarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnVoltarContatos, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(18, 18, 18)
+                .addComponent(btnSalvar)
+                .addContainerGap())
+        );
+        panelHeaderAdicionarLayout.setVerticalGroup(
+            panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHeaderAdicionarLayout.createSequentialGroup()
+                .addGroup(panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelHeaderAdicionarLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(panelHeaderAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(panelHeaderAdicionarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnVoltarContatos, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        panelContainerHeader.add(panelHeaderAdicionar, "cardHeaderAdicionar");
+
         panelMain.setLayout(new java.awt.CardLayout());
+
+        txtProcurarContato.setForeground(new java.awt.Color(135, 128, 128));
+        txtProcurarContato.setText("Procurar...");
+        txtProcurarContato.setMargin(new java.awt.Insets(5, 10, 5, 10));
+        txtProcurarContato.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtProcurarContatoMouseClicked(evt);
+            }
+        });
+
+        btnProcurarContato.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        btnProcurarContato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/procurar.png"))); // NOI18N
+        btnProcurarContato.setBorderPainted(false);
+        btnProcurarContato.setContentAreaFilled(false);
+        btnProcurarContato.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnProcurarContatoMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnProcurarContatoMouseEntered(evt);
+            }
+        });
+        btnProcurarContato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcurarContatoActionPerformed(evt);
+            }
+        });
+
+        tableProcurar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        tableProcurar.setForeground(new java.awt.Color(55, 64, 77));
+        tableProcurar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nome", "Telefone", "Favorito"
+            }
+        ));
+        tableProcurar.setRowHeight(30);
+        tableProcurar.setSelectionBackground(new java.awt.Color(201, 223, 255));
+        tableProcurar.setSelectionForeground(new java.awt.Color(55, 64, 77));
+        scrollProcurar.setViewportView(tableProcurar);
+        if (tableProcurar.getColumnModel().getColumnCount() > 0) {
+            tableProcurar.getColumnModel().getColumn(0).setHeaderValue("Nome");
+            tableProcurar.getColumnModel().getColumn(1).setHeaderValue("Telefone");
+            tableProcurar.getColumnModel().getColumn(2).setMinWidth(70);
+            tableProcurar.getColumnModel().getColumn(2).setPreferredWidth(70);
+            tableProcurar.getColumnModel().getColumn(2).setMaxWidth(70);
+            tableProcurar.getColumnModel().getColumn(2).setHeaderValue("Favorito");
+        }
+
+        javax.swing.GroupLayout panelProcurarLayout = new javax.swing.GroupLayout(panelProcurar);
+        panelProcurar.setLayout(panelProcurarLayout);
+        panelProcurarLayout.setHorizontalGroup(
+            panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProcurarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelProcurarLayout.createSequentialGroup()
+                        .addComponent(txtProcurarContato, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProcurarContato, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scrollProcurar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelProcurarLayout.setVerticalGroup(
+            panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProcurarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtProcurarContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProcurarContato, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(scrollProcurar, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+        );
+
+        panelProcurarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnProcurarContato, txtProcurarContato});
+
+        panelMain.add(panelProcurar, "cardProcurar");
+        panelProcurar.getAccessibleContext().setAccessibleName("cardProcurar");
 
         panelAdicionar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Adicionar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 15), new java.awt.Color(55, 64, 77))); // NOI18N
         panelAdicionar.setForeground(new java.awt.Color(55, 64, 77));
@@ -442,74 +487,6 @@ public class Principal extends javax.swing.JFrame {
         panelMain.add(panelAdicionar, "cardAdicionar");
         panelAdicionar.getAccessibleContext().setAccessibleName("cardAdicionar");
 
-        tableProcurar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        tableProcurar.setForeground(new java.awt.Color(55, 64, 77));
-        tableProcurar.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        tableProcurar.setRowHeight(30);
-        tableProcurar.setSelectionBackground(new java.awt.Color(201, 223, 255));
-        tableProcurar.setSelectionForeground(new java.awt.Color(55, 64, 77));
-        tableProcurar.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scrollProcurar.setViewportView(tableProcurar);
-
-        txtProcurarContato.setForeground(new java.awt.Color(135, 128, 128));
-        txtProcurarContato.setText("Procurar...");
-        txtProcurarContato.setMargin(new java.awt.Insets(5, 10, 5, 10));
-        txtProcurarContato.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtProcurarContatoMouseClicked(evt);
-            }
-        });
-
-        btnProcurarContato.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        btnProcurarContato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/procurar.png"))); // NOI18N
-        btnProcurarContato.setBorderPainted(false);
-        btnProcurarContato.setContentAreaFilled(false);
-        btnProcurarContato.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnProcurarContatoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnProcurarContatoMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelProcurarLayout = new javax.swing.GroupLayout(panelProcurar);
-        panelProcurar.setLayout(panelProcurarLayout);
-        panelProcurarLayout.setHorizontalGroup(
-            panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelProcurarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollProcurar, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-                    .addGroup(panelProcurarLayout.createSequentialGroup()
-                        .addComponent(txtProcurarContato)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnProcurarContato, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        panelProcurarLayout.setVerticalGroup(
-            panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProcurarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelProcurarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtProcurarContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProcurarContato, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollProcurar, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
-        );
-
-        panelProcurarLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnProcurarContato, txtProcurarContato});
-
-        panelMain.add(panelProcurar, "cardProcurar");
-        panelProcurar.getAccessibleContext().setAccessibleName("cardProcurar");
-
         tableFavorito.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tableFavorito.setForeground(new java.awt.Color(55, 64, 77));
         tableFavorito.setModel(new javax.swing.table.DefaultTableModel(
@@ -639,9 +616,6 @@ public class Principal extends javax.swing.JFrame {
             contato.setEmail(txtEmail.getText());
             // Seta a letra de acordo com o sexo selecionado
             contato.setSexo(cboSexo.getSelectedIndex());
-{
-                
-            }
             
             // Data de Nascimento
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -701,6 +675,47 @@ public class Principal extends javax.swing.JFrame {
     }
     
     
+    //Atualiza a lista de clientes
+    public boolean refreshList()
+            throws ContatoException, Exception {
+        //Realiza a pesquisa de clientes com o último valor de pesquisa
+        //para atualizar a lista
+        List<Contato> resultado = ServiceContato.procurarContato(busca);
+
+        //Obtém o elemento representante do conteúdo da tabela na tela
+        DefaultTableModel model = (DefaultTableModel) tableProcurar.getModel();
+        //Indica que a tabela deve excluir todos seus elementos
+        //Isto limpará a lista, mesmo que a pesquisa não tenha sucesso
+        model.setRowCount(0);
+
+        //Verifica se não existiram resultados. Caso afirmativo, encerra a
+        //atualização e indica ao elemento acionador o não sucesso da pesquisa
+        if (resultado == null || resultado.size() <= 0) {
+            return false;
+        }
+
+        //Percorre a lista de resultados e os adiciona na tabela
+        for (int i = 0; i < resultado.size(); i++) {
+            Contato contato = resultado.get(i);
+            if (contato != null) {
+                Object[] row = new Object[3];
+                row[0] = contato.getNome();
+                row[1] = contato.getTelefone();
+                if (contato.getFavorito()) {
+                    row[2] = "Sim";
+                }
+                else{
+                    row[2] = "Não";
+                }
+                model.addRow(row);
+            }
+        }
+
+        //Se chegamos até aqui, a pesquisa teve sucesso, então
+        //retornamos "true" para o elemento acionante, indicando
+        //que não devem ser exibidas mensagens de erro
+        return true;
+    }
     
     
     
@@ -712,20 +727,9 @@ public class Principal extends javax.swing.JFrame {
     private void btnContatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContatosActionPerformed
         if (!contatoClicado) {
             btnContatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/contato_ativo_md.png")));
-            btnFavoritos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/favorito_md.png")));
             contatoClicado = true;
-            favoritoClicado = false;
         }
     }//GEN-LAST:event_btnContatosActionPerformed
-
-    private void btnFavoritosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFavoritosActionPerformed
-        if (!favoritoClicado) {
-            btnFavoritos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/favorito_ativo_md.png")));
-            btnContatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/contato_md.png")));
-            favoritoClicado = true;
-            contatoClicado = false;
-        }
-    }//GEN-LAST:event_btnFavoritosActionPerformed
 
     private void btnContatosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnContatosMouseEntered
         if (!contatoClicado) {
@@ -739,18 +743,6 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnContatosMouseExited
 
-    private void btnFavoritosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFavoritosMouseEntered
-        if (!favoritoClicado) {
-            btnFavoritos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/favorito_ativo_md.png")));
-        }
-    }//GEN-LAST:event_btnFavoritosMouseEntered
-
-    private void btnFavoritosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFavoritosMouseExited
-        if (!favoritoClicado) {
-            btnFavoritos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/favorito_md.png")));
-        }
-    }//GEN-LAST:event_btnFavoritosMouseExited
-
     private void btnVoltarContatosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarContatosMouseEntered
         btnVoltarContatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/contato_ativo_md.png")));
     }//GEN-LAST:event_btnVoltarContatosMouseEntered
@@ -758,14 +750,6 @@ public class Principal extends javax.swing.JFrame {
     private void btnVoltarContatosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarContatosMouseExited
         btnVoltarContatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/contato_md.png")));
     }//GEN-LAST:event_btnVoltarContatosMouseExited
-
-    private void btnVoltarFavoritosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarFavoritosMouseEntered
-        btnVoltarFavoritos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/favorito_ativo_md.png")));
-    }//GEN-LAST:event_btnVoltarFavoritosMouseEntered
-
-    private void btnVoltarFavoritosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarFavoritosMouseExited
-        btnVoltarFavoritos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/favorito_md.png")));
-    }//GEN-LAST:event_btnVoltarFavoritosMouseExited
 
     private void btnProcurarFavoritoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProcurarFavoritoMouseEntered
         btnProcurarFavorito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/procurar_ativo.png")));
@@ -799,7 +783,6 @@ public class Principal extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
             insereContato();
-            limpaCampos();
         } catch (ParseException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -810,6 +793,37 @@ public class Principal extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpaCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnProcurarContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarContatoActionPerformed
+        //Inicializa o sucesso da pesquisa com valor negativo, indicando que
+        //a pesquisa de clientes não obteve resultados (situação padrão)
+        boolean resultSearch = false;
+        //Grava o campo de pesquisa como a última pesquisa válida. O valor
+        //de última pesquisa válida é utilizado na atualização da lista
+        if (txtProcurarContato.getText().equalsIgnoreCase("Pesquisar...")) {
+            busca = null;
+        }else{
+            busca = txtProcurarContato.getText();
+        }
+
+        try {
+            //Solicita a atualização da lista com o novo critério
+            //de pesquisa (ultimaPesquisa)
+            resultSearch = refreshList();
+            txtProcurarContato.setText("");
+        } catch (Exception e) {
+            //Exibe mensagens de erro na fonte de dados e para o listener
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(),
+                    "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        //Exibe mensagem de erro caso a pesquisa não tenha resultados
+        if (!resultSearch) {
+            JOptionPane.showMessageDialog(rootPane, "A pesquisa não retornou resultados ",
+                    "Sem resultados", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnProcurarContatoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -851,12 +865,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnContatos;
     private javax.swing.JButton btnDeletar;
-    private javax.swing.JButton btnFavoritos;
     private javax.swing.JButton btnProcurarContato;
     private javax.swing.JButton btnProcurarFavorito;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltarContatos;
-    private javax.swing.JButton btnVoltarFavoritos;
     private javax.swing.JComboBox<String> cboSexo;
     private javax.swing.JComboBox<String> cboTipoTelefone;
     private javax.swing.JCheckBox ckbFavorito;
