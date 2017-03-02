@@ -49,19 +49,34 @@ public class ServiceContato {
     }
     
     //Realiza a pesquisa de um cliente por nome na fonte de dados
-    public static List<Contato> procurarContato(String str)
+    public static List<Contato> procurarContatoNome(String str)
+            throws ContatoException, DataSourceException {
+        try {
+            //Verifica se um parâmetro de pesquisa não foi informado.
+            //Caso afirmativo, realiza uma listagem simples do banco.
+            //Caso contrário, realiza uma pesquisa com o parâmetro
+            
+            if (str == null || str.equals("")) {
+                return DaoContato.listarTodos();
+            }
+            return DaoContato.listaPorNome(str);
+            
+        } catch (Exception e) {
+            //Imprime qualquer erro técnico no console e devolve
+            //uma exceção e uma mensagem amigável a camada de visão
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados", e);
+        }
+    }
+    //Realiza a pesquisa de um cliente por nome na fonte de dados
+    public static List<Contato> procurarContatoTelefone(String str)
             throws ContatoException, DataSourceException {
         try {
             //Verifica se um parâmetro de pesquisa não foi informado.
             //Caso afirmativo, realiza uma listagem simples do banco.
             //Caso contrário, realiza uma pesquisa com o parâmetro
 
-            DaoContato daoContato = new DaoContato();
-            
-            if (str == null || str.equals("")) {
-                return daoContato.listarTodos();                   
-            }
-            return daoContato.listarTodos();
+            return DaoContato.listaPorTelefone(str);
             
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve

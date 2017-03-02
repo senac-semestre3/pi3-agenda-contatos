@@ -101,11 +101,11 @@ public class DaoContato {
                 contato.setNome(result.getString("nome"));
                 contato.setDataNascimento(result.getDate("data_nasc"));
                 contato.setTelefone(result.getString("telefone"));
-                contato.setEmail(result.getString("email"));
-                contato.setSexo(result.getString("sexo").charAt(0));
-                contato.setFavorito(result.getBoolean("favorito"));
                 contato.setTipoTelefone(result.getInt("tipo_telefone"));
-
+                contato.setEmail(result.getString("email"));
+                contato.setSexo(result.getInt("sexo"));
+                contato.setFavorito(result.getBoolean("favorito"));
+                
                 contatos.add(contato);
 
             }
@@ -121,6 +121,7 @@ public class DaoContato {
         return contatos;
     }
 
+    // Retorna a busca pelo Id
     public static List<Contato> listaPorId(int id) {
         List<Contato> contatos = new ArrayList<Contato>();
         Connection con = getConexaoDB();
@@ -138,7 +139,7 @@ public class DaoContato {
                 contato.setTelefone(result.getString("telefone"));
                 contato.setTipoTelefone(result.getInt("tipo_telefone"));
                 contato.setEmail(result.getString("email"));
-                contato.setSexo(result.getString("sexo").charAt(0));
+                contato.setSexo(result.getInt("sexo"));
                 contato.setFavorito(result.getBoolean("favorito"));
 
                 contatos.add(contato);
@@ -155,6 +156,7 @@ public class DaoContato {
         return contatos;
     }
 
+    // Retorna a lista buscada pelo nome
     public static List<Contato> listaPorNome(String nome) {
         List<Contato> contatos = new ArrayList<Contato>();
 
@@ -172,7 +174,7 @@ public class DaoContato {
                 contato.setTelefone(result.getString("telefone"));
                 contato.setTipoTelefone(result.getInt("tipo_telefone"));
                 contato.setEmail(result.getString("email"));
-                contato.setSexo(result.getString("sexo").charAt(0));
+                contato.setSexo(result.getInt("sexo"));
                 contato.setFavorito(result.getBoolean("favorito"));
 
                 contatos.add(contato);
@@ -191,8 +193,9 @@ public class DaoContato {
         return contatos;
     }
 
-    public static List<Contato> listaPorTelefone(int telefone) {
-        List<Contato> contatos = new ArrayList<Contato>();
+    // Retorna a busca pelo telefone
+    public static List<Contato> listaPorTelefone(String telefone) {
+        List<Contato> contatos = new ArrayList<>();
         Connection con = getConexaoDB();
 
         try {
@@ -207,7 +210,7 @@ public class DaoContato {
                 contato.setTelefone(result.getString("telefone"));
                 contato.setTipoTelefone(result.getInt("tipo_telefone"));
                 contato.setEmail(result.getString("email"));
-                contato.setSexo(result.getString("sexo").charAt(0));
+                contato.setSexo(result.getInt("sexo"));
                 contato.setFavorito(result.getBoolean("favorito"));
 
                 contatos.add(contato);
