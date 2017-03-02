@@ -9,9 +9,6 @@ import br.senac.pi3a.model.Contato;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 /**
@@ -36,10 +33,11 @@ public class DaoContato {
                 + "nome, "
                 + "data_nasc, "
                 + "telefone, "
+                + "tipo_telefone, "
                 + "email, "
                 + "sexo,"
                 + "favorito)"
-                + " VALUES (?, ?, ?, ?, ?, ?)";
+                + " VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
 
@@ -56,12 +54,14 @@ public class DaoContato {
             stmt.setDate(2, dataSql);
             //Insere na query o telefone
             stmt.setString(3, contato.getTelefone());
+            //Insere na query o tipo de telefone
+            stmt.setInt(4, contato.getTipoTelefone());
             //Insere na query o email
-            stmt.setString(4, contato.getEmail());
+            stmt.setString(5, contato.getEmail());
             //Insere na query o sexo
-            stmt.setString(5, Character.toString(contato.getSexo()));
+            stmt.setInt(6, contato.getSexo());
             //Insere na query o favorito true ou false
-            stmt.setBoolean(6, contato.getFavorito()); 
+            stmt.setBoolean(7, contato.getFavorito());
             //Executa SQL Statement
             stmt.execute();
             //Fecha

@@ -38,11 +38,16 @@ public class DBConnector {
 
             String username = "root"; //nome de um usuário do db      
             //Meu  banco
-            String password = "L@la280789"; //senha de acesso
+             String password = "L@la280789"; //senha de acesso
 
           // banco do everton String password = "P@ssw0rd"; //senha de acesso
-
-            connection = DriverManager.getConnection(url, username, password);
+            //Conexxão local
+            //connection = DriverManager.getConnection(url, username, password);
+           
+            //Conexão com servidor de banco web
+            connection = DriverManager.getConnection("jdbc:mysql://cloud.kwcraft.com.br:3306/agenda_contatos?zeroDateTimeBehavior=convertToNull", "agenda", "P@ssw0rd");
+            
+            
 
             //Testando a conexão 
             if (connection != null) {

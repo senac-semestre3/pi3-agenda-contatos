@@ -17,8 +17,21 @@ public class Contato {
     private Date dataNascimento;
     private String telefone;
     private String email;
-    private char sexo;
-    private boolean favorito =false;
+    private int sexo;
+    private boolean favorito;
+    private int tipoTelefone;
+
+    public Contato() {
+        this.favorito = false;
+    }
+
+    public int getTipoTelefone() {
+        return tipoTelefone;
+    }
+
+    public void setTipoTelefone(int tipoTelefone) {
+        this.tipoTelefone = tipoTelefone;
+    }
 
     
     // geters e seters
@@ -54,11 +67,11 @@ public class Contato {
         this.email = email;
     }
     
-    public char getSexo() {
+    public int getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(int sexo) {
         this.sexo = sexo;
     }
     
