@@ -37,8 +37,8 @@ public class TesteConexao {
         
         
 //        //Teste deleta por ID
-        DaoContato.deletaContatoPorId(26));
-        DBConnector.FecharConexao();
+//        DaoContato.deletaContatoPorId(26));
+//        DBConnector.FecharConexao();
         
         // Teste editar contatos
 //        Contato c = new Contato();
