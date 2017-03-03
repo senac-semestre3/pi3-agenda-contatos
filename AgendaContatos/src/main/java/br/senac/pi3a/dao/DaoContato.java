@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,21 +69,22 @@ public class DaoContato {
             stmt.execute();
             //Fecha
 
+            FecharConexao();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             FecharConexao();
         }
-        FecharConexao();
 
     }
 
     //retorna uma lista de contatos
     public static List<Contato> listarTodos() throws
             SQLException, Exception {
-        
+
         String sql = "SELECT * FROM contato";
-        
+
         //Cria lista de contatos
         List<Contato> contatos = new ArrayList<>();
         //Abre conexão
@@ -105,7 +107,7 @@ public class DaoContato {
                 contato.setEmail(result.getString("email"));
                 contato.setSexo(result.getInt("sexo"));
                 contato.setFavorito(result.getBoolean("favorito"));
-                
+
                 contatos.add(contato);
 
             }
@@ -116,7 +118,10 @@ public class DaoContato {
 
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            FecharConexao();
         }
+
         //Retorna a lista de clientes do banco de dados
         return contatos;
     }
@@ -227,5 +232,90 @@ public class DaoContato {
 
         }
         return contatos;
+    }
+
+    public static void deletaTodosContatos() {
+        Connection con = getConexaoDB();
+        try {
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM contato;");
+            stmt.executeUpdate();
+            stmt.close();
+            FecharConexao();
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getErrorCode());
+            System.out.println(e.getMessage());
+        } finally {
+            FecharConexao();
+        }
+
+    }
+    //Everton, coloquei para receber apenas o Id do contato, caso queira colocar para receber o contato todo troque o parâmentro
+    // Parâmentro Contato contoto
+    public static void deletaContatoPorId(int id) {
+        Connection con = DBConnector.getConexaoDB();
+
+        try {
+            PreparedStatement stmt = con.prepareStatement("DELETE from contato WHERE id_contato =" + id + ";");// E aqui por contato.getIdContato()
+            stmt.executeUpdate();
+            stmt.close();
+            FecharConexao();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        } finally {
+            FecharConexao();
+        }
+    }
+
+    public static void editarContatoId(Contato contato){
+
+        Connection con = DBConnector.getConexaoDB();
+
+        String sql = "UPDATE contato SET "
+                + "nome= ?,"
+                + "data_nasc= ?,"
+                + "telefone= ?,"
+                + "tipo_telefone= ?, "
+                + "email= ?, "
+                + "sexo= ?, "
+                + "favorito= ? "
+                + "WHERE id_contato = ?";
+
+        try ( // prepared statement para inserção
+                PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            //Seta valores para inserção
+            //Insere nome
+            stmt.setString(1, contato.getNome());
+            //Converte a data de nascimento do java para dataSql
+            java.util.Date dataUtil = contato.getDataNascimento();
+            java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
+            //Insere na query o resultado da conversão 
+            stmt.setDate(2, dataSql);
+            //Insere na query o telefone
+            stmt.setString(3, contato.getTelefone());
+            //Insere na query o tipo de telefone
+            stmt.setInt(4, contato.getTipoTelefone());
+            //Insere na query o email
+            stmt.setString(5, contato.getEmail());
+            //Insere na query o sexo
+            stmt.setInt(6, contato.getSexo());
+            //Seta na query se é favorito ou não 
+            stmt.setBoolean(7, contato.getFavorito());
+            stmt.setInt(8, contato.getIdContato());
+            //Executa SQL Statement
+            stmt.executeUpdate();
+            //Fecha
+            FecharConexao();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        } finally {
+            FecharConexao();
+        }
     }
 }
