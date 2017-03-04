@@ -389,6 +389,11 @@ public class Principal extends javax.swing.JFrame {
         tableProcurar.setRowHeight(30);
         tableProcurar.setSelectionBackground(new java.awt.Color(201, 223, 255));
         tableProcurar.setSelectionForeground(new java.awt.Color(55, 64, 77));
+        tableProcurar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableProcurarMouseClicked(evt);
+            }
+        });
         scrollProcurar.setViewportView(tableProcurar);
         if (tableProcurar.getColumnModel().getColumnCount() > 0) {
             tableProcurar.getColumnModel().getColumn(0).setMinWidth(0);
@@ -782,14 +787,14 @@ public class Principal extends javax.swing.JFrame {
         cboTipoTelefone.setSelectedIndex(contato.getTipoTelefone());
         txtEmail.setText(contato.getEmail());
         cboSexo.setSelectedIndex(contato.getSexo());
-        
-        SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");  
-        
+
+        SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
+
         txtDataNascimento.setText(formata.format(contato.getDataNascimento()));
         ckbFavorito.setSelected(contato.getFavorito());
     }
-    
-    public void alteraTituloPanel(String titulo){
+
+    public void alteraTituloPanel(String titulo) {
         panelAdicionar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, titulo, javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
     }
     private void btnVoltarContatosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarContatosMouseEntered
@@ -816,7 +821,7 @@ public class Principal extends javax.swing.JFrame {
             try {
                 resultSearch = refreshList();
             } catch (Exception ex) {
-                
+
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -969,7 +974,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarAtivoActionPerformed
 
     private void txtProcurarContatoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProcurarContatoKeyPressed
-        
+
     }//GEN-LAST:event_txtProcurarContatoKeyPressed
 
     private void txtProcurarContatoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProcurarContatoKeyReleased
@@ -980,9 +985,9 @@ public class Principal extends javax.swing.JFrame {
             //Solicita a atualização da lista com o novo critério
             //de pesquisa (ultimaPesquisa)
             resultSearch = refreshList();
-            
+
         } catch (Exception e) {
-            
+
         }
     }//GEN-LAST:event_txtProcurarContatoKeyReleased
 
@@ -1022,9 +1027,74 @@ public class Principal extends javax.swing.JFrame {
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/salvar.png")));
     }//GEN-LAST:event_btnSalvarMouseExited
 
+    private void tableProcurarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProcurarMouseClicked
+        //Verifica se o clique é um clique duplo       
+        if (evt.getClickCount() == 2) {
+            try {
+                //Obtém a linha selecionada na tabela de resultados
+                final int row = tableProcurar.getSelectedRow();
+                //Verifica se há linha selecionada na tabela
+                if (row >= 0) {
+                    //Obtém a linha selecionada na tabela
+                    int id = (int) tableProcurar.getValueAt(row, 0);
+
+                    //Solicita ao serviço a obtenção do cliente a partir do
+                    //ID selecionado na tabela
+                    Contato contato = ServiceContato.obterContato(id);
+                    
+                    // dados para preencher o joption
+                    String tipoTelefone;
+                    String sexo;
+                    String dataNascimento;
+                    String favorito = "";
+                    if (contato.getTipoTelefone() == 1) {
+                        tipoTelefone = "Casa";
+                    }else if( contato.getTipoTelefone() == 2){
+                        tipoTelefone = "Celular";
+                    }else{
+                        tipoTelefone = "Trabalho";
+                    }
+                    
+                    
+                    if (contato.getSexo() == 1) {
+                        sexo = "Feminino";
+                    }else{
+                        sexo = "Masculino";
+                    }
+                    
+                    if (contato.getFavorito()) {
+                        favorito = "Entre os favorito";
+                    }
+                    
+                    SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
+                    dataNascimento = formata.format(contato.getDataNascimento());
+                    
+                    
+                    JOptionPane.showMessageDialog(rootPane, 
+                            "Nome: " + contato.getNome() + " " + contato.getSobrenome() + "\n" 
+                            + "Telefone: " + contato.getTelefone() + "\n"
+                            + "Tipo de contato: " + tipoTelefone + "\n"
+                            + "E-mail: " + contato.getEmail() + "\n"
+                            + "Sexo: " + sexo + "\n" 
+                            + "Data de Nascimento: " + dataNascimento + "\n"
+                            + favorito);
+                    txtProcurarContato.setText("Procurar...");
+                }
+            } catch (Exception e) {
+                //Se ocorrer algum erro técnico, mostra-o no console,
+                //mas esconde-o do usuário
+                e.printStackTrace();
+                //Exibe uma mensagem de erro genérica ao usuário
+                JOptionPane.showMessageDialog(rootPane, "Não é possível "
+                        + "exibir os detalhes deste cliente.",
+                        "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_tableProcurarMouseClicked
+
     /**
-     * @param args the command line arguments
-     */
+         * @param args the command line arguments
+         */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
