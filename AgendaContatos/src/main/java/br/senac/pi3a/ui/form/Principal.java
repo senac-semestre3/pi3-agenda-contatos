@@ -1,4 +1,3 @@
-
 package br.senac.pi3a.ui.form;
 
 import br.senac.pi3a.exceptions.ContatoException;
@@ -20,16 +19,19 @@ import javax.swing.table.DefaultTableModel;
  * @author everton
  */
 public class Principal extends javax.swing.JFrame {
+
     private String buscar = null;
     private boolean contCliqueCaixaPesquisa = false;
-    
+    private boolean editando = false;
+    private int idContatoAlterar;
+
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,11 +81,11 @@ public class Principal extends javax.swing.JFrame {
 
         panelContainerHeader.setLayout(new java.awt.CardLayout());
 
-        panelHeaderPrincipal.setBackground(new java.awt.Color(201, 223, 255));
+        panelHeaderPrincipal.setBackground(new java.awt.Color(27, 169, 146));
 
         btnContatos.setBackground(new java.awt.Color(25, 169, 147));
         btnContatos.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        btnContatos.setForeground(new java.awt.Color(55, 64, 77));
+        btnContatos.setForeground(new java.awt.Color(247, 207, 0));
         btnContatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/contato_ativo_md.png"))); // NOI18N
         btnContatos.setText("Contatos");
         btnContatos.setBorder(null);
@@ -109,11 +111,11 @@ public class Principal extends javax.swing.JFrame {
         btnAdicionar.setMinimumSize(new java.awt.Dimension(69, 71));
         btnAdicionar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnAdicionar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAdicionarMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAdicionarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAdicionarMouseExited(evt);
             }
         });
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -125,11 +127,23 @@ public class Principal extends javax.swing.JFrame {
         btnEditar.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar_xs.png"))); // NOI18N
         btnEditar.setBorderPainted(false);
+        btnEditar.setContentAreaFilled(false);
         btnEditar.setDefaultCapable(false);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnDeletar.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         btnDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deletar_xs.png"))); // NOI18N
         btnDeletar.setBorderPainted(false);
+        btnDeletar.setContentAreaFilled(false);
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelHeaderPrincipalLayout = new javax.swing.GroupLayout(panelHeaderPrincipal);
         panelHeaderPrincipal.setLayout(panelHeaderPrincipalLayout);
@@ -164,7 +178,7 @@ public class Principal extends javax.swing.JFrame {
 
         panelContainerHeader.add(panelHeaderPrincipal, "cardHeaderPrincipal");
 
-        panelHeaderAdicionar.setBackground(new java.awt.Color(201, 223, 255));
+        panelHeaderAdicionar.setBackground(new java.awt.Color(27, 169, 146));
 
         btnVoltarContatos.setBackground(new java.awt.Color(25, 169, 147));
         btnVoltarContatos.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
@@ -196,7 +210,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnAdicionarAtivo.setBackground(new java.awt.Color(25, 169, 147));
         btnAdicionarAtivo.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
-        btnAdicionarAtivo.setForeground(new java.awt.Color(55, 64, 77));
+        btnAdicionarAtivo.setForeground(new java.awt.Color(247, 207, 0));
         btnAdicionarAtivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/adicionar_ativo_md.png"))); // NOI18N
         btnAdicionarAtivo.setText("Adicionar");
         btnAdicionarAtivo.setBorder(null);
@@ -205,10 +219,16 @@ public class Principal extends javax.swing.JFrame {
         btnAdicionarAtivo.setFocusPainted(false);
         btnAdicionarAtivo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAdicionarAtivo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAdicionarAtivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarAtivoActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cancelar_xs.png"))); // NOI18N
         btnCancelar.setBorderPainted(false);
+        btnCancelar.setContentAreaFilled(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -218,6 +238,7 @@ public class Principal extends javax.swing.JFrame {
         btnSalvar.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/salvar_xs.png"))); // NOI18N
         btnSalvar.setBorderPainted(false);
+        btnSalvar.setContentAreaFilled(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -264,17 +285,25 @@ public class Principal extends javax.swing.JFrame {
                 txtProcurarContatoMouseClicked(evt);
             }
         });
+        txtProcurarContato.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtProcurarContatoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtProcurarContatoKeyReleased(evt);
+            }
+        });
 
         btnProcurarContato.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         btnProcurarContato.setIcon(new javax.swing.ImageIcon(getClass().getResource("/procurar.png"))); // NOI18N
         btnProcurarContato.setBorderPainted(false);
         btnProcurarContato.setContentAreaFilled(false);
         btnProcurarContato.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnProcurarContatoMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnProcurarContatoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnProcurarContatoMouseExited(evt);
             }
         });
         btnProcurarContato.addActionListener(new java.awt.event.ActionListener() {
@@ -287,33 +316,33 @@ public class Principal extends javax.swing.JFrame {
         tableProcurar.setForeground(new java.awt.Color(55, 64, 77));
         tableProcurar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome", "Telefone", "Favorito"
+                "", "Nome", "Telefone", "Favorito"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -325,9 +354,12 @@ public class Principal extends javax.swing.JFrame {
         tableProcurar.setSelectionForeground(new java.awt.Color(55, 64, 77));
         scrollProcurar.setViewportView(tableProcurar);
         if (tableProcurar.getColumnModel().getColumnCount() > 0) {
-            tableProcurar.getColumnModel().getColumn(2).setMinWidth(70);
-            tableProcurar.getColumnModel().getColumn(2).setPreferredWidth(70);
-            tableProcurar.getColumnModel().getColumn(2).setMaxWidth(70);
+            tableProcurar.getColumnModel().getColumn(0).setMinWidth(0);
+            tableProcurar.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tableProcurar.getColumnModel().getColumn(0).setMaxWidth(0);
+            tableProcurar.getColumnModel().getColumn(3).setMinWidth(70);
+            tableProcurar.getColumnModel().getColumn(3).setPreferredWidth(70);
+            tableProcurar.getColumnModel().getColumn(3).setMaxWidth(70);
         }
 
         javax.swing.GroupLayout panelProcurarLayout = new javax.swing.GroupLayout(panelProcurar);
@@ -459,7 +491,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(panelAdicionarLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(ckbFavorito)
-                .addContainerGap(342, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelAdicionarLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(panelAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,11 +500,11 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelAdicionarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSexo1)
-                    .addComponent(txtDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                    .addComponent(txtDataNascimento))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelAdicionarLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addComponent(txtTelefone)
                 .addGap(18, 18, 18)
                 .addComponent(cboTipoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -528,11 +560,10 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelContainerHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(panelContainerHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -546,54 +577,76 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     // **************MÉTODOS ***************
-    
-        //Insere Contato
-    public void insereContato() throws ParseException{
+    //Insere Contato
+    public void insereContato(Contato contato) {
         if (camposPreenchidos()) {
-            Contato contato = new Contato();
-            contato.setNome(txtNome.getText() + " " + txtSobrenome.getText());
+
+            contato.setNome(txtNome.getText());
+            contato.setSobrenome(txtSobrenome.getText());
             contato.setTelefone(txtTelefone.getText());
             contato.setTipoTelefone(cboTipoTelefone.getSelectedIndex());
             contato.setEmail(txtEmail.getText());
-            // Seta a letra de acordo com o sexo selecionado
             contato.setSexo(cboSexo.getSelectedIndex());
-            
-            // Data de Nascimento
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            Date data = formato.parse(txtDataNascimento.getText());
-            contato.setDataNascimento(data);
-            
 
-            // seta favorito se acaso o ckbFavorito estiver selecionado
-            if (ckbFavorito.isSelected()) {
-                contato.setFavorito(true);
-            }
+            //Formata a data 
+            SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
+            Date data = null; // cria um objeto do tipo date
             try {
-                ServiceContato.inserirContato(contato);
-                
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, e.getMessage(),
-                        "Erro", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
 
-            JOptionPane.showMessageDialog(rootPane, "Contato inserido com sucesso!!",
-                    "Cadastro efetuado", JOptionPane.INFORMATION_MESSAGE);
+                data = (Date) formataData.parse(txtDataNascimento.getText());
+            } catch (Exception e) {
+                data = null;
+            }
+            contato.setDataNascimento(data);
+            contato.setFavorito(ckbFavorito.isSelected());
+
+            if (!editando) {
+                try {
+                    ServiceContato.inserirContato(contato);
+                    JOptionPane.showMessageDialog(rootPane, "Contato inserido com sucesso!!");
+                    editando = false;
+                    telaProcurarContatos();
+                    try {
+                        refreshList();
+                    } catch (Exception ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } catch (ContatoException | DataSourceException e) {
+                    JOptionPane.showMessageDialog(rootPane, e.getMessage(),
+                            "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } else {
+                try {
+                    contato.setId(idContatoAlterar);
+                    ServiceContato.editarContato(contato);
+                    JOptionPane.showMessageDialog(rootPane, "Contato alterado com sucesso!!");
+                    editando = false;
+                    telaProcurarContatos();
+                    try {
+                        refreshList();
+                    } catch (Exception ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } catch (ContatoException | DataSourceException e) {
+                    JOptionPane.showMessageDialog(rootPane, e.getMessage(),
+                            "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
             // Se o contato for inserido com sucesso limpa os campos
             limpaCampos();
-                    
-        }else{
-            
-            JOptionPane.showMessageDialog(rootPane,"Preencha os campos marcados com (*)!!!");
-        }
-            
 
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Preencha os campos marcados com (*)!!!");
+        }
     }
-    
+
     // Verifica se os campos marcados com (*) estão preenchidos
-    public boolean camposPreenchidos(){
+    public boolean camposPreenchidos() {
         if (txtNome.getText().equals("")) {
             return false;
         }
@@ -608,19 +661,19 @@ public class Principal extends javax.swing.JFrame {
         }
         return cboSexo.getSelectedIndex() != 0;
     }
-    
+
     // Limpa os campos
-    public void limpaCampos(){
+    public void limpaCampos() {
         txtNome.setText("");
         txtSobrenome.setText("");
         txtTelefone.setText("");
         cboTipoTelefone.setSelectedIndex(0);
         txtEmail.setText("");
         cboSexo.setSelectedIndex(0);
-        txtDataNascimento.setText("");   
+        txtDataNascimento.setText("");
+        ckbFavorito.setSelected(false);
     }
-    
-    
+
     //Atualiza a lista de clientes
     public boolean refreshList()
             throws ContatoException, Exception {
@@ -629,11 +682,10 @@ public class Principal extends javax.swing.JFrame {
         List<Contato> resultado;
         try {
             int numero = Integer.parseInt(buscar);
-             resultado = ServiceContato.procurarContatoTelefone(buscar);
+            resultado = ServiceContato.procurarContatoTelefone(buscar);
         } catch (NumberFormatException | ContatoException | DataSourceException e) {
             resultado = ServiceContato.procurarContatoNome(buscar);
         }
-        
 
         //Obtém o elemento representante do conteúdo da tabela na tela
         DefaultTableModel model = (DefaultTableModel) tableProcurar.getModel();
@@ -651,14 +703,14 @@ public class Principal extends javax.swing.JFrame {
         for (int i = 0; i < resultado.size(); i++) {
             Contato contato = resultado.get(i);
             if (contato != null) {
-                Object[] row = new Object[3];
-                row[0] = contato.getNome();
-                row[1] = contato.getTelefone();
+                Object[] row = new Object[4];
+                row[0] = contato.getId();
+                row[1] = contato.getNome();
+                row[2] = contato.getTelefone();
                 if (contato.getFavorito()) {
-                    row[2] = "Sim";
-                }
-                else{
-                    row[2] = "Não";
+                    row[3] = "Sim";
+                } else {
+                    row[3] = "Não";
                 }
                 model.addRow(row);
             }
@@ -669,29 +721,41 @@ public class Principal extends javax.swing.JFrame {
         //que não devem ser exibidas mensagens de erro
         return true;
     }
-    
+
     // Chama a tela de procurar contatos
-    public void telaProcurarContatos(){
-        CardLayout cardMain = (CardLayout)panelMain.getLayout();
+    public void telaProcurarContatos() {
+        CardLayout cardMain = (CardLayout) panelMain.getLayout();
         cardMain.show(panelMain, "cardProcurar");
-    
-        CardLayout cardHeader = (CardLayout)panelContainerHeader.getLayout();
+
+        CardLayout cardHeader = (CardLayout) panelContainerHeader.getLayout();
         cardHeader.show(panelContainerHeader, "cardHeaderPrincipal");
     }
-    
+
     // Chama a tela para inserir ou alterar contato
-    public void telaInsereContato(){
-        CardLayout cardMain = (CardLayout)panelMain.getLayout();
+    public void telaInsereContato() {
+        CardLayout cardMain = (CardLayout) panelMain.getLayout();
         cardMain.show(panelMain, "cardAdicionar");
-    
-        CardLayout cardHeader = (CardLayout)panelContainerHeader.getLayout();
+
+        CardLayout cardHeader = (CardLayout) panelContainerHeader.getLayout();
         cardHeader.show(panelContainerHeader, "cardHeaderAdicionar");
     }
-    
-    
-    
-    
-    
+
+    // preenche os campos com os dados do contato
+    public void completaTelaEdicao(Contato contato) {
+
+        txtNome.setText(contato.getNome());
+        txtSobrenome.setText(contato.getSobrenome());
+        txtTelefone.setText(contato.getTelefone());
+        cboTipoTelefone.setSelectedIndex(contato.getTipoTelefone());
+        txtEmail.setText(contato.getEmail());
+        cboSexo.setSelectedIndex(contato.getSexo());
+        
+        SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");  
+        
+        txtDataNascimento.setText(formata.format(contato.getDataNascimento()));
+        ckbFavorito.setSelected(contato.getFavorito());
+    }
+
     private void btnVoltarContatosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarContatosMouseEntered
         btnVoltarContatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/contato_ativo_md.png")));
     }//GEN-LAST:event_btnVoltarContatosMouseEntered
@@ -710,25 +774,29 @@ public class Principal extends javax.swing.JFrame {
 
     private void txtProcurarContatoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtProcurarContatoMouseClicked
         contCliqueCaixaPesquisa = true;
+        boolean resultSearch = false;
         if (contCliqueCaixaPesquisa) {
             txtProcurarContato.setText("");
+            try {
+                resultSearch = refreshList();
+            } catch (Exception ex) {
+                
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_txtProcurarContatoMouseClicked
 
     // btn Salvar
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        try {
-            insereContato();
-        } catch (ParseException ex) {
-            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Contato contato = new Contato();
+        insereContato(contato);
     }//GEN-LAST:event_btnSalvarActionPerformed
-    
-    
+
     // btn Cancelar
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        limpaCampos();
         telaProcurarContatos();
+        limpaCampos();
+        editando = false;
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnProcurarContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcurarContatoActionPerformed
@@ -739,15 +807,17 @@ public class Principal extends javax.swing.JFrame {
         //de última pesquisa válida é utilizado na atualização da lista
         if (!contCliqueCaixaPesquisa) {
             buscar = null;
-        }else{
+            contCliqueCaixaPesquisa = false;
+        } else {
             buscar = txtProcurarContato.getText();
+            contCliqueCaixaPesquisa = false;
         }
 
         try {
             //Solicita a atualização da lista com o novo critério
             //de pesquisa (ultimaPesquisa)
             resultSearch = refreshList();
-            txtProcurarContato.setText("");
+            txtProcurarContato.setText("Procurar...");
         } catch (Exception e) {
             //Exibe mensagens de erro na fonte de dados e para o listener
             JOptionPane.showMessageDialog(rootPane, e.getMessage(),
@@ -772,11 +842,112 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         telaInsereContato();
+        txtProcurarContato.setText("Procurar...");
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnVoltarContatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarContatosActionPerformed
         telaProcurarContatos();
+        limpaCampos();
+        editando = false;
     }//GEN-LAST:event_btnVoltarContatosActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        try {
+
+            //Obtém a linha selecionada na tabela de resultados
+            final int row = tableProcurar.getSelectedRow();
+            //Verifica se há linha selecionada na tabela
+            if (row >= 0) {
+                //Obtém a linha selecionada na tabela
+                int id = (int) tableProcurar.getValueAt(row, 0);
+
+                //Solicita ao serviço a obtenção do cliente a partir do
+                //ID selecionado na tabela
+                Contato contato = ServiceContato.obterContato(id);
+                idContatoAlterar = contato.getId();
+
+                //Cria uma nova instância da tela de edição,
+                //configura o cliente selecionado como elemento a
+                //ser editado e mostra a tela de edição.
+                //chama o método que envia para a tela de inserção de clientes
+                // com os dados j ápreenchidos nos campos.
+                telaInsereContato();
+
+                // Método que preenche os campos do cliente
+                completaTelaEdicao(contato);
+                editando = true;
+                txtProcurarContato.setText("Procurar...");
+            }
+        } catch (Exception e) {
+            //Se ocorrer algum erro técnico, mostra-o no console,
+            //mas esconde-o do usuário
+            e.printStackTrace();
+            //Exibe uma mensagem de erro genérica ao usuário
+            JOptionPane.showMessageDialog(rootPane, "Não é possível "
+                    + "exibir os detalhes deste cliente.",
+                    "Erro ao abrir detalhe", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    //btn Deletar
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        //Verifica se há itens selecionados para exclusão.
+        //Caso negativo, ignora o comando
+        if (tableProcurar.getSelectedRow() >= 0) {
+
+            //Obtém a linha do item selecionado
+            final int row = tableProcurar.getSelectedRow();
+            //Obtém o nome do contato da linha indicada para exibição
+            //de mensagem de confirmação de exclusão utilizando seu nome
+            String nome = (String) tableProcurar.getValueAt(row, 1);
+            //Mostra o diálogo de confirmação de exclusão
+            int resposta = JOptionPane.showConfirmDialog(rootPane,
+                    "Excluir o contato \"" + nome + "\"?",
+                    "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
+            //Se o valor de resposta for "Sim" para a exclusão
+            if (resposta == JOptionPane.YES_OPTION) {
+                try {
+                    //Obtém o id do contato
+                    int id = (int) tableProcurar.getValueAt(row, 0);
+                    //Solicita ao serviço a inativação do cliente com o ID
+                    ServiceContato.excluirContato(id);
+                    //Atualiza a lista após a "exclusão"
+                    this.refreshList();
+                    JOptionPane.showMessageDialog(rootPane, "Contato Excluido com sucesso!!");
+                    txtProcurarContato.setText("Procurar...");
+                } catch (Exception e) {
+                    //Se ocorrer algum erro técnico, mostra-o no console,
+                    //mas esconde-o do usuário
+                    e.printStackTrace();
+                    //Exibe uma mensagem de erro genérica ao usuário
+                    JOptionPane.showMessageDialog(rootPane, e.getMessage(),
+                            "Falha na Exclusão", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void btnAdicionarAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAtivoActionPerformed
+        editando = false;
+    }//GEN-LAST:event_btnAdicionarAtivoActionPerformed
+
+    private void txtProcurarContatoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProcurarContatoKeyPressed
+        
+    }//GEN-LAST:event_txtProcurarContatoKeyPressed
+
+    private void txtProcurarContatoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProcurarContatoKeyReleased
+        boolean resultSearch = false;
+
+        buscar = txtProcurarContato.getText();
+        try {
+            //Solicita a atualização da lista com o novo critério
+            //de pesquisa (ultimaPesquisa)
+            resultSearch = refreshList();
+            
+        } catch (Exception e) {
+            
+        }
+    }//GEN-LAST:event_txtProcurarContatoKeyReleased
 
     /**
      * @param args the command line arguments

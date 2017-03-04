@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,39 +31,36 @@ public class DaoContato {
         this.connection = new DBConnector().getConexaoDB();
     }
 
-    //public void inserirContato(Contato contato)
+    //Insere o contato
     public void inserirContato(Contato contato) throws RuntimeException {
         String sql = "INSERT INTO contato ("
                 + "nome, "
-                + "data_nasc, "
+                + "sobrenome, "
                 + "telefone, "
                 + "tipo_telefone, "
                 + "email, "
                 + "sexo, "
+                + "data_nasc, "
                 + "favorito)"
-                + " VALUES (?, ?, ?, ?, ?, ?, ?)";
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try ( // prepared statement para inserção
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            //Seta valores para inserção
-            //Insere nome
-            stmt.setString(1, contato.getNome());
             //Converte a data de nascimento do java para dataSql
             java.util.Date dataUtil = contato.getDataNascimento();
             java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
-            //Insere na query o resultado da conversão 
-            stmt.setDate(2, dataSql);
-            //Insere na query o telefone
+
+            //Seta valores para inserção
+            stmt.setString(1, contato.getNome());
+            stmt.setString(2, contato.getSobrenome());
             stmt.setString(3, contato.getTelefone());
-            //Insere na query o tipo de telefone
             stmt.setInt(4, contato.getTipoTelefone());
-            //Insere na query o email
             stmt.setString(5, contato.getEmail());
-            //Insere na query o sexo
             stmt.setInt(6, contato.getSexo());
-            //Seta na query se é favorito ou não 
-            stmt.setBoolean(7, contato.getFavorito());
+            stmt.setDate(7, dataSql);
+            stmt.setBoolean(8, contato.getFavorito());
+
             //Executa SQL Statement
             stmt.execute();
             //Fecha
@@ -77,6 +73,52 @@ public class DaoContato {
             FecharConexao();
         }
 
+    }
+
+    //Obtém uma instância da classe "Contato" através de dados do
+    //banco de dados, de acordo com o ID fornecido como parâmetro
+    public static Contato obter(int id)
+            throws SQLException, Exception {
+
+        String sql = "SELECT * FROM contato WHERE (id = " + id + ")";
+
+        Connection con = getConexaoDB();
+
+        try {
+            //Cria um statement para executar as instruções SQL
+            PreparedStatement stmt = con.prepareStatement(sql);
+            //Cria o objeto que recebe o resultado da  query executada
+            ResultSet result = stmt.executeQuery();
+
+            //Percorre o resultado da query criando e adicionando os contatos 
+            //encotrados na lista de contatos inicialmente declarada.
+            while (result.next()) {
+                Contato contato = new Contato();
+
+                contato.setId(result.getInt("id"));
+                contato.setNome(result.getString("nome"));
+                contato.setSobrenome(result.getString("sobrenome"));
+                contato.setTelefone(result.getString("telefone"));
+                contato.setTipoTelefone(result.getInt("tipo_telefone"));
+                contato.setEmail(result.getString("email"));
+                contato.setSexo(result.getInt("sexo"));
+                contato.setDataNascimento(result.getDate("data_nasc"));
+                contato.setFavorito(result.getBoolean("favorito"));
+
+                return contato;
+
+            }
+
+            result.close();
+            stmt.close();
+            FecharConexao();
+
+        } catch (Exception e) {
+            throw new SQLException(e);
+        } finally {
+            FecharConexao();
+        }
+        return null;
     }
 
     //retorna uma lista de contatos
@@ -96,16 +138,18 @@ public class DaoContato {
             //Cria o objeto que recebe o resultado da  query executada
             ResultSet result = stmt.executeQuery();
 
-            //Percorre o resultado da query criando e adicionando os contatos encotrados na lista de contatos inicialmente declarada.
+            //Percorre o resultado da query criando e adicionando os contatos 
+            //encotrados na lista de contatos inicialmente declarada.
             while (result.next()) {
                 Contato contato = new Contato();
-                contato.setIdContato(result.getInt("id_contato"));
+                contato.setId(result.getInt("id"));
                 contato.setNome(result.getString("nome"));
-                contato.setDataNascimento(result.getDate("data_nasc"));
+                contato.setSobrenome(result.getString("sobrenome"));
                 contato.setTelefone(result.getString("telefone"));
                 contato.setTipoTelefone(result.getInt("tipo_telefone"));
                 contato.setEmail(result.getString("email"));
                 contato.setSexo(result.getInt("sexo"));
+                contato.setDataNascimento(result.getDate("data_nasc"));
                 contato.setFavorito(result.getBoolean("favorito"));
 
                 contatos.add(contato);
@@ -126,41 +170,6 @@ public class DaoContato {
         return contatos;
     }
 
-    // Retorna a busca pelo Id
-    public static List<Contato> listaPorId(int id) {
-        List<Contato> contatos = new ArrayList<Contato>();
-        Connection con = getConexaoDB();
-
-        try {
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM contato WHERE id_contato = " + id + ";");
-
-            ResultSet result = stmt.executeQuery();
-
-            while (result.next()) {
-                Contato contato = new Contato();
-                contato.setIdContato(result.getInt("id_contato"));
-                contato.setNome(result.getString("nome"));
-                contato.setDataNascimento(result.getDate("data_nasc"));
-                contato.setTelefone(result.getString("telefone"));
-                contato.setTipoTelefone(result.getInt("tipo_telefone"));
-                contato.setEmail(result.getString("email"));
-                contato.setSexo(result.getInt("sexo"));
-                contato.setFavorito(result.getBoolean("favorito"));
-
-                contatos.add(contato);
-
-            }
-            result.close();
-            stmt.close();
-            FecharConexao();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            FecharConexao();
-        }
-        return contatos;
-    }
-
     // Retorna a lista buscada pelo nome
     public static List<Contato> listaPorNome(String nome) {
         List<Contato> contatos = new ArrayList<Contato>();
@@ -173,15 +182,15 @@ public class DaoContato {
 
             while (result.next()) {
                 Contato contato = new Contato();
-                contato.setIdContato(result.getInt("id_contato"));
+                contato.setId(result.getInt("id"));
                 contato.setNome(result.getString("nome"));
-                contato.setDataNascimento(result.getDate("data_nasc"));
                 contato.setTelefone(result.getString("telefone"));
                 contato.setTipoTelefone(result.getInt("tipo_telefone"));
                 contato.setEmail(result.getString("email"));
                 contato.setSexo(result.getInt("sexo"));
+                contato.setDataNascimento(result.getDate("data_nasc"));
                 contato.setFavorito(result.getBoolean("favorito"));
-
+                
                 contatos.add(contato);
 
             }
@@ -209,13 +218,13 @@ public class DaoContato {
 
             while (result.next()) {
                 Contato contato = new Contato();
-                contato.setIdContato(result.getInt("id_contato"));
+                contato.setId(result.getInt("id"));
                 contato.setNome(result.getString("nome"));
-                contato.setDataNascimento(result.getDate("data_nasc"));
                 contato.setTelefone(result.getString("telefone"));
                 contato.setTipoTelefone(result.getInt("tipo_telefone"));
                 contato.setEmail(result.getString("email"));
                 contato.setSexo(result.getInt("sexo"));
+                contato.setDataNascimento(result.getDate("data_nasc"));
                 contato.setFavorito(result.getBoolean("favorito"));
 
                 contatos.add(contato);
@@ -234,30 +243,12 @@ public class DaoContato {
         return contatos;
     }
 
-    public static void deletaTodosContatos() {
-        Connection con = getConexaoDB();
-        try {
-            PreparedStatement stmt = con.prepareStatement("DELETE FROM contato;");
-            stmt.executeUpdate();
-            stmt.close();
-            FecharConexao();
-
-        } catch (SQLException e) {
-
-            System.out.println(e.getErrorCode());
-            System.out.println(e.getMessage());
-        } finally {
-            FecharConexao();
-        }
-
-    }
-    //Everton, coloquei para receber apenas o Id do contato, caso queira colocar para receber o contato todo troque o parâmentro
-    // Parâmentro Contato contoto
-    public static void deletaContatoPorId(int id) {
+    // Deleta o contato
+    public static void excluirContato(int id) {
         Connection con = DBConnector.getConexaoDB();
 
         try {
-            PreparedStatement stmt = con.prepareStatement("DELETE from contato WHERE id_contato =" + id + ";");// E aqui por contato.getIdContato()
+            PreparedStatement stmt = con.prepareStatement("DELETE from contato WHERE id =" + id + ";");// E aqui por contato.getIdContato()
             stmt.executeUpdate();
             stmt.close();
             FecharConexao();
@@ -270,42 +261,40 @@ public class DaoContato {
         }
     }
 
-    public static void editarContatoId(Contato contato){
+    //Edita contato
+    public static void editarContato(Contato contato) {
 
         Connection con = DBConnector.getConexaoDB();
 
         String sql = "UPDATE contato SET "
                 + "nome= ?,"
-                + "data_nasc= ?,"
+                + "sobrenome= ?,"
                 + "telefone= ?,"
                 + "tipo_telefone= ?, "
                 + "email= ?, "
                 + "sexo= ?, "
+                + "data_nasc= ?,"
                 + "favorito= ? "
-                + "WHERE id_contato = ?";
+                + "WHERE id = ?";
 
         try ( // prepared statement para inserção
                 PreparedStatement stmt = con.prepareStatement(sql)) {
 
-            //Seta valores para inserção
-            //Insere nome
-            stmt.setString(1, contato.getNome());
             //Converte a data de nascimento do java para dataSql
             java.util.Date dataUtil = contato.getDataNascimento();
             java.sql.Date dataSql = new java.sql.Date(dataUtil.getTime());
-            //Insere na query o resultado da conversão 
-            stmt.setDate(2, dataSql);
-            //Insere na query o telefone
+
+            //Seta valores para inserção
+            stmt.setString(1, contato.getNome());
+            stmt.setString(2, contato.getSobrenome());
             stmt.setString(3, contato.getTelefone());
-            //Insere na query o tipo de telefone
             stmt.setInt(4, contato.getTipoTelefone());
-            //Insere na query o email
             stmt.setString(5, contato.getEmail());
-            //Insere na query o sexo
             stmt.setInt(6, contato.getSexo());
-            //Seta na query se é favorito ou não 
-            stmt.setBoolean(7, contato.getFavorito());
-            stmt.setInt(8, contato.getIdContato());
+            stmt.setDate(7, dataSql);
+            stmt.setBoolean(8, contato.getFavorito());
+            stmt.setInt(9, contato.getId());
+
             //Executa SQL Statement
             stmt.executeUpdate();
             //Fecha

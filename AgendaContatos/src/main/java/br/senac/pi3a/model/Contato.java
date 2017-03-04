@@ -14,26 +14,27 @@ import java.util.Date;
  */
 public class Contato {
 
-    private int id_contato;
+    private int id;
     private String nome;
-    private Date dataNascimento;
+    private String sobrenome;
     private String telefone;
+    private int tipoTelefone;
     private String email;
     private int sexo;
+    private Date dataNascimento;
     private boolean favorito;
-    private int tipoTelefone;
+    
 
     public Contato() {
         this.favorito = false;
     }
 
-    // geters e seters
-    public int getIdContato() {
-        return id_contato;
+    public int getId() {
+        return id;
     }
 
-    public void setIdContato(int id_contato) {
-        this.id_contato = id_contato;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -44,12 +45,12 @@ public class Contato {
         this.nome = nome;
     }
 
-    public Date getDataNascimento() {
-        return dataNascimento;
+    public String getSobrenome() {
+        return sobrenome;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
     }
 
     public String getTelefone() {
@@ -84,6 +85,14 @@ public class Contato {
         this.sexo = sexo;
     }
 
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
     public boolean getFavorito() {
         return favorito;
     }
@@ -91,4 +100,8 @@ public class Contato {
     public void setFavorito(boolean favorito) {
         this.favorito = favorito;
     }
+    
+    
+    
+    
 }
