@@ -6,19 +6,17 @@ USE agenda_contatos;
 /*Cria a tablema contato*/
 CREATE TABLE contato (
   /*criando os campos*/
-  id_contato int NOT NULL AUTO_INCREMENT, 
-  nome varchar(100),
-  data_nasc date,
-  telefone varchar(11),
-  email varchar(60),
-  sexo char(1),
-  data_Ehora timestamp default current_timestamp,
-  favorito BOOLEAN,
+  id INT NOT NULL AUTO_INCREMENT, 
+  nome VARCHAR(50),
+  sobrenome VARCHAR(100),
+  telefone VARCHAR(15),
   tipo_telefone INT,
-  PRIMARY KEY(id_contato) /*Configura o campo "id_contato" sendo a chave primária */
+  email VARCHAR(60),
+  sexo INT(1),
+  data_nasc DATE,
+  favorito BOOLEAN,
+  data_hora timestamp default current_timestamp,
+  PRIMARY KEY(id) /*Configura o campo "id" sendo a chave primária */
 );
-/*insert de teste*/
-/*CURRENT_TIMESTAMP ==  pega" a data e hora do momento do insert */
-INSERT INTO contato (nome, data_nasc, telefone, email, sexo, data_Ehora)
-VALUES ("Nome", "2017-02-01", "1199999999", "email@email.com", "m", CURRENT_TIMESTAMP);
+
 

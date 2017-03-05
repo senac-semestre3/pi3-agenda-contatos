@@ -1,8 +1,9 @@
 ######### CORES ################
 Cores em RGB
-#Header: 						[201,223,255]
-#imagens:						[55,64,77]
-#imagens Ativa:					[255,187,0]
+#Header: 						[188,201,208]
+#imagens:						[66,86,97]
+#imagens Ativa:					[24,64,211]
+#imagens Ativa 2:				[255,59,59]
 #Texto:							[55,64,77]
 #Background Texto Selecionado:	[255,187,0]
 #Texto Selecionado:				[255,255,255]
